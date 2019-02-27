@@ -5,6 +5,7 @@ public class Card {
 	private String suit;
 	private String rank;
 	private int value;
+	private String cardImage;
 	
 	public Card(String suit, String rank) {
 		this.suit = suit;
@@ -26,6 +27,22 @@ public class Card {
 				break;
 		}
 		return value;
+	}
+	
+	public String getCardImage() {
+		
+		String image = "";
+		
+		image = "__________" +
+		        "|4       |" +
+				"|        |" +
+		        "|        |" +
+				"|    $   |" +
+		        "|        |" +
+				"|        |" +
+		        "|_______4|";
+		
+		return image;
 	}
 
 	@Override
