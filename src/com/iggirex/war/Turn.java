@@ -41,9 +41,6 @@ public class Turn {
 			Card player1Card = player1.getDeck().takeACard();
 			Card player2Card = player2.getDeck().takeACard();
 			
-//			player1Card = new Card("h", "k");
-//			player2Card = new Card("h", "k");
-			
 			System.out.println("COMPARING PLAYER1 CARD: " + player1Card + 
 								" TO PLAYER2 CARD: " + player2Card);
 			

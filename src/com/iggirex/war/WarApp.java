@@ -14,5 +14,4 @@ public class WarApp {
 		
 		game.play(player1, player2, theDealer, gameDeck);
 	}
-
 }
