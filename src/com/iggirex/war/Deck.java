@@ -1,11 +1,10 @@
-package war;
+package com.iggirex.war;
 
 import java.util.ArrayList;
 
 public class Deck {
 
 	private ArrayList<Card> cards = new ArrayList<>();
-	private String owner;
 	
 	public void addACard(Card theCard) {
 		cards.add(theCard);
@@ -23,19 +22,6 @@ public class Deck {
 	
 	public void setCards(ArrayList<Card> cards) {
 		this.cards = cards;
-	}
-	
-	public String getOwner() {
-		return owner;
-	}
-	
-	public void setOwner(String owner) {
-		this.owner = owner;
-	}
-	
-	@Override
-	public String toString() {
-		return "Deck [cards=" + cards + ", owner=" + owner + "]";
 	}
 	
 }

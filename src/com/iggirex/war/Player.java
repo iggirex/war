@@ -1,4 +1,4 @@
-package war;
+package com.iggirex.war;
 
 import java.util.Collections;
 
@@ -13,11 +13,10 @@ public class Player {
 	}
 	
 	
-	public void addToDeck(Card tempCard, Player thePlayer) {
+	public void addToDeck(Card tempCard) {
 		
 		if(deck == null) {
 			deck = new Deck();
-			deck.setOwner(name);
 		}
 		deck.addACard(tempCard);
 	}

@@ -1,4 +1,4 @@
-package war;
+package com.iggirex.war;
 
 public class Card {
 	
