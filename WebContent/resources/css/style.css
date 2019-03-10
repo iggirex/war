@@ -1,0 +1,227 @@
+body {
+	overflow: hidden;
+	margin: 0px;
+}
+
+.transparent {
+	opacity: 0.4;
+}
+
+.display-flex {
+	display: flex;
+}
+
+.column-container {
+	flex-direction: column;
+	height: 33.3vh;
+}
+
+.row-container {
+	flex-direction: row;
+}
+
+#outerContainer {
+	height: 100vh;
+	max-height: 100vh;
+}
+
+#topContainer {
+	background-color: rebeccapurple;
+}
+
+#middleContainer {
+	background-color: blue;
+}
+
+#bottomContainer {
+	background-color: yellow;
+}
+
+.vh30 {
+	height: 30vh;
+}
+
+.row-container {
+	flex-direction: row;
+}
+
+ /* inner container is just placeholder? */
+.innerContainer {
+	height: 100%;
+	width: 20vw;
+	opacity: 0.7;
+	background-color: green;
+	margin: 0px 10px 0px 10px;
+}
+
+.middle-inner-container {
+	height: 100%;
+	width: 25vw;
+	background-color: red;
+	margin: 0px 10px 0px 10px;
+}
+
+#topContainer {
+	justify-content: space-between;
+}
+
+#announcementsContainer {
+	width: 40vw;
+}
+
+#middleContainer {
+	height: 60vh;
+}
+
+#centerGameContainer {
+	width: 75vw;	
+}
+
+#player-label-container {
+	background-color: red;
+	height: 100%;
+	width: 40%;
+}
+
+#player-container {
+	flex-direction: row;
+	justify-content: space-around;
+	height: 100%;
+	width: 50vw;
+}
+
+#announcements {
+	background-color: red;
+ 	height: 25%;
+}
+
+#gameStatus {
+	background-color: red;
+	height: 50%;
+}
+
+#announcementsContainer {
+}
+
+.player-label {
+	font-size: 20px;
+	background-color: blue;
+	height: 30%;
+}
+
+.player-score-container {
+	background-color: yellow;
+	height: 50%;
+}
+
+.player-decks-container {
+	background-color: red;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 50%;
+	min-width: 260px;
+}
+
+.player-deck {
+	height: 19vh;
+	width: 80px;
+	border: 5px solid black;
+	margin: 3vh;
+	/* min-width: 80px; */
+}
+
+.card-value {
+	height: 5vh;
+	width: 5vw;
+	border: 3px solid black;
+}
+
+.center-center {
+	justify-content: center;
+	align-items: center;
+}
+
+.player-score-label {
+	background-color: white;
+	height: 30%;
+}
+
+.player-score {
+	background-color: black;
+	height: 30%;
+}
+
+.flex-column-evenly {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+.playing-half {
+	border: 3px dotted black;
+	height: 50%;
+	/* display: flex;
+	justify-content: center;
+	*/
+	align-items:flex-end;
+}
+
+#top-playing-card-container {
+	display: flex;
+	justify-content: center;
+	align-items:flex-end;
+	width: 200px;
+	margin-left: 100px;
+}
+
+#bottom-playing-card-container {
+	display: flex;
+	justify-content: center;
+	width: 200px;
+	margin-right: 100px;
+}
+
+.playing-cards {
+	height: 19vh;
+	width: 80px;
+	border: 5px solid black;
+	margin-right: -30px;
+}
+
+.top-playing-cards {
+	margin-right: -30px;
+}
+
+.bottom-playing-cards {
+	margin-left: -30px;
+}
+
+#playing-card-one {
+	margin-bottom: 20px;
+}
+
+#playing-card-two {
+	margin-bottom: 10px;
+}
+
+#playing-card-three {
+	
+}
+
+#playing-card-four {
+}
+
+#playing-card-five {
+	margin-top: 10px;
+}
+
+#playing-card-six {
+	margin-top: 20px;
+}
+
+#bottom-playing-half {
+	align-items:flex-start;
+	justify-content: flex-end;
+}
