@@ -18,9 +18,9 @@
 		
 			<div id="player-label-container" class="flex-column-evenly">
 				<div class="player-label">PLAYER 2</div>
-				<div class="player-score-container flex-column-evenly">
-					<div class="player-score-label"></div>
-					<div class="player-score"></div>
+				<div class="player-score-container flex-column-evenly center-center">
+					
+					26			
 				</div>
 			</div>
 		
@@ -45,7 +45,6 @@
 			</div>
 		
 		</div>
-		
 	</div>
 	
 	
@@ -100,15 +99,18 @@
 	
 	<div id="bottomContainer" class="display-flex transparent row-container vh30">
 	
-		<div id="gameControls" class="innerContainer">
+		<div id="gameControls" class="innerContainer flex-column-evenly">
 			
-			<div id="drawButton">
+			<div id="draw-button" class="display-flex center-center fs30">
+				DRAW
 			</div>
 			
-			<div id="forfeitButton">
+			<div id="forfeit-button" class="display-flex center-center fs30">
+				FORFEIT
 			</div>
 			
-			<div id="backButton">
+			<div id="back-button" class="display-flex center-center fs30">
+				BACK
 			</div>
 		</div>
 		
@@ -119,9 +121,10 @@
 		
 			<div id="player-label-container" class="flex-column-evenly">
 				<div class="player-label">PLAYER 1</div>
-				<div class="player-score-container flex-column-evenly">
-					<div class="player-score-label"></div>
-					<div class="player-score"></div>
+				<div class="player-score-container flex-column-evenly center-center">
+					
+					26
+
 				</div>
 			</div>
 		

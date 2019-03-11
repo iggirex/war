@@ -35,6 +35,7 @@ body {
 
 #bottomContainer {
 	background-color: yellow;
+	justify-content: space-between;
 }
 
 .vh30 {
@@ -81,6 +82,7 @@ body {
 	background-color: red;
 	height: 100%;
 	width: 40%;
+	min-width: 195px;
 }
 
 #player-container {
@@ -104,7 +106,7 @@ body {
 }
 
 .player-label {
-	font-size: 20px;
+	font-size: 40px;
 	background-color: blue;
 	height: 30%;
 }
@@ -112,6 +114,7 @@ body {
 .player-score-container {
 	background-color: yellow;
 	height: 50%;
+	font-size: 70px;
 }
 
 .player-decks-container {
@@ -128,7 +131,7 @@ body {
 	height: 19vh;
 	width: 80px;
 	border: 5px solid black;
-	margin: 3vh;
+	margin: 10px;
 	/* min-width: 80px; */
 }
 
@@ -141,11 +144,6 @@ body {
 .center-center {
 	justify-content: center;
 	align-items: center;
-}
-
-.player-score-label {
-	background-color: white;
-	height: 30%;
 }
 
 .player-score {
@@ -174,6 +172,7 @@ body {
 	align-items:flex-end;
 	width: 200px;
 	margin-left: 100px;
+	flex-direction: row-reverse;
 }
 
 #bottom-playing-card-container {
@@ -199,29 +198,54 @@ body {
 }
 
 #playing-card-one {
-	margin-bottom: 20px;
+	
+	background-color: red;
 }
 
 #playing-card-two {
 	margin-bottom: 10px;
+	background-color: gray;
 }
 
 #playing-card-three {
-	
+	margin-bottom: 20px;
+	background-color: green;
 }
 
 #playing-card-four {
+	background-color: black;
 }
 
 #playing-card-five {
+	background-color: white;
 	margin-top: 10px;
 }
 
 #playing-card-six {
+	background-color: blue;
 	margin-top: 20px;
 }
 
 #bottom-playing-half {
 	align-items:flex-start;
 	justify-content: flex-end;
+}
+
+#draw-button {
+	height: 40px;
+	background-color: purple;
+}
+
+#forfeit-button {
+	height: 40px;
+	background-color: brown;
+}
+
+#back-button {
+	height: 40px;
+	background-color: red;
+}
+
+.fs30 {
+	font-size: 30px;
 }
