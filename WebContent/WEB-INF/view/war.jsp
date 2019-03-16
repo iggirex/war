@@ -1,4 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 
 <!DOCTYPE html>
 
@@ -102,19 +104,34 @@
 		<div id="gameControls" class="innerContainer flex-column-evenly">
 			
 			<div id="draw-button" class="display-flex center-center fs30">
-				DRAW
+			
+				<form:form method="POST" modelAttribute="turn" action="postWar">
+				
+					<form:hidden path="id" />
+				
+					<input type="submit" value="DRAW" />
+					
+				</form:form>
 			</div>
 			
 			<div id="forfeit-button" class="display-flex center-center fs30">
-				FORFEIT
+				FOREFEIT
 			</div>
 			
 			<div id="back-button" class="display-flex center-center fs30">
-				BACK
+				
+				
+				<form:form method="GET" modelAttribute="turn" action="getTurns">
+				
+				
+					<input type="submit" value="See Turns" />
+					
+				</form:form>
 			</div>
 		</div>
 		
 		<div id="timeControls" class="innerContainer">
+			<p>${turn}</p>
 		</div>
 		
 		<div id="player-container" class="innerContainer display-flex">

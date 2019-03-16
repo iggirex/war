@@ -1,16 +1,39 @@
 package com.iggirex.war;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="turn")
 public class Turn {
 	
+	@Id
+	@Column(name="id")
+	private int id;
+	
+	@Column(name="player1Score")
 	private int player1Score;
+	
+	@Column(name="player1GameDeck")
+	private int player1GameDeck;
+	
+	@Column(name="player1WinDeck")
+	private int player1WinDeck;
+	
+	@Column(name="player2Score")
 	private int player2Score;
+	
+	@Column(name="player2GameDeck")
+	private int player2GameDeck;
+	
+	@Column(name="player2WinDeck")
+	private int player2WinDeck;
+	
+	
+	private Player gameWinner;	
 	private boolean hasGameBeenWon;
-	private Player gameWinner;
 	
 	public boolean runTurns(Deck gameDeck, Player player1, Player player2) {		
 		

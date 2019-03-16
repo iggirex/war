@@ -10,11 +10,15 @@ CREATE TABLE `game_tbl` (
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `turn`;
+DROP TABLE IF EXISTS `turn_tbl`;
 CREATE TABLE `turn_tbl` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
     `player1Score` int(11) DEFAULT NULL,
+    `player1GameDeck` int(11) DEFAULT NULL,
+    `player1WinDeck` int(11) DEFAULT NULL,
     `player2Score` int(11)DEFAULT NULL,
+	`player2GameDeck` int(11) DEFAULT NULL,
+    `player2WinDeck` int(11) DEFAULT NULL,
     `game_id` int(11) DEFAULT NULL,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`game_id`) REFERENCES game_tbl (`id`)

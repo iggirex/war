@@ -1,13 +1,81 @@
-package com.iggirex.war;
+package com.iggirex.war.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
-public class Dealer {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.iggirex.war.Card;
+import com.iggirex.war.Dealer;
+import com.iggirex.war.Deck;
+import com.iggirex.war.Game;
+import com.iggirex.war.Player;
+import com.iggirex.war.dao.TurnDAO;
+import com.iggirex.war.entity.Turn;
+
+@Service
+public class DealerServiceImpl implements DealerService {
 	
+	// need to inject customer DAO
+	@Autowired
+	private TurnDAO turnDAO;
 	private boolean gameHasBeenWon;
 	private Player gameWinner;
 	public int turnNumber = 0;
+
+	// Use @Transactional because our service layer will define the
+	// beginning and end of a transaction.
+	// @Transactional saves you from having to .begin(), .commit(), .close()
+	
+	
+	@Override
+	@Transactional
+	public List<Turn> getTurns() {
+		
+		return turnDAO.getTurns();
+	}
+	
+	@Transactional
+	private void saveTurn(Turn turn) {
+		
+		
+		
+	}
+	
+	@Override
+	public Turn runTurn(Turn turn) {
+		
+		// save turn
+		
+		// compare cards
+		
+		// resolve winner
+
+		return turn;
+	}
+	
+	
+	// start game
+	
+	public void startGame() {
+		
+		// make initial deck
+		
+		// deal cards
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
 
 	public Deck makeInitialDeck(){
 		
@@ -62,18 +130,18 @@ public class Dealer {
 	}
 	
 	public void runGame(Deck gameDeck, Player player1, Player player2) {
-		
-		System.out.println("\n======================== Beginning of Turn " 
-							+ turnNumber + " =============================");
-		
-		Turn turn = new Turn();
-		gameHasBeenWon = turn.runTurns(gameDeck, player1, player2);
-		turnNumber++;
-		
-		System.out.println("=================================================="
-							+ "=========================\n");
-
-		gameWinner = turn.getWinner();
+//		
+//		System.out.println("\n======================== Beginning of Turn " 
+//							+ turnNumber + " =============================");
+//		
+//		Turn turn = new Turn();
+//		gameHasBeenWon = turn.runTurns(gameDeck, player1, player2);
+//		turnNumber++;
+//		
+//		System.out.println("=================================================="
+//							+ "=========================\n");
+//
+//		gameWinner = turn.getWinner();
 	}
 	
 	public void play(Player player1, Player player2, Dealer theDealer, Deck gameDeck) {
@@ -104,5 +172,5 @@ public class Dealer {
 	public int getTurnNumber() {
 		return turnNumber;
 	}
-	
+
 }

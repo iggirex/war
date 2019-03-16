@@ -12,6 +12,6 @@ public class WarApp {
 		
 		theDealer.deal(gameDeck.getCards(), player1, player2);
 		
-		game.play(player1, player2, theDealer, gameDeck);
+		theDealer.play(player1, player2, theDealer, gameDeck);
 	}
 }
