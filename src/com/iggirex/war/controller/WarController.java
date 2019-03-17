@@ -26,7 +26,8 @@ public class WarController {
 	public String getWar(Model theModel) {
 	
 		
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
+		
+		System.out.println("$$$$$$$$$$$$$$$$fdafsafadsfadsfasdfadsfadsfasd$$$$$$$$$$\n");
 		
 		System.out.println(theModel);
 		
