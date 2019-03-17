@@ -19,5 +19,7 @@ import com.iggirex.war.entity.Turn;
 public interface TurnDAO {
 	
 	public List<Turn> getTurns();
+	
+	public Turn saveTurn(Turn turn);
 
 }

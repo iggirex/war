@@ -10,4 +10,6 @@ public interface DealerService {
 		
 	public Turn runTurn(Turn turn);
 	
+	public Turn initializeGame();
+	
 }

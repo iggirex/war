@@ -22,13 +22,45 @@ public class DealerServiceImpl implements DealerService {
 	// need to inject customer DAO
 	@Autowired
 	private TurnDAO turnDAO;
-	private boolean gameHasBeenWon;
-	private Player gameWinner;
-	public int turnNumber = 0;
+//	private boolean gameHasBeenWon;
+//	private Player gameWinner;
+//	public int turnNumber = 0;
 
 	// Use @Transactional because our service layer will define the
 	// beginning and end of a transaction.
 	// @Transactional saves you from having to .begin(), .commit(), .close()
+	
+	@Override
+	public Turn initializeGame() {
+		
+		Player player1 = new Player("player1");
+		Player player2 = new Player("player2");
+		
+		// make initial turn
+		Turn firstTurn = new Turn();
+		
+		// save initial turn
+		turnDAO.saveTurn(firstTurn);
+		
+		
+		// make initial deck / 
+		Deck initialDeck = makeInitialDeck();
+		
+		
+		// deal deck
+		deal();
+		
+		
+		// compare cards
+		
+		
+		
+		// return turn
+		
+		
+		return firstTurn;
+		
+	}
 	
 	
 	@Override
@@ -48,7 +80,11 @@ public class DealerServiceImpl implements DealerService {
 	@Override
 	public Turn runTurn(Turn turn) {
 		
+		
+		// totally empty turn comes in, add everything to turn
+		
 		// save turn
+		turnDAO.saveTurn(turn);
 		
 		// compare cards
 		
@@ -65,9 +101,6 @@ public class DealerServiceImpl implements DealerService {
 		// make initial deck
 		
 		// deal cards
-		
-		
-		
 		
 	}
 	
@@ -144,33 +177,33 @@ public class DealerServiceImpl implements DealerService {
 //		gameWinner = turn.getWinner();
 	}
 	
-	public void play(Player player1, Player player2, Dealer theDealer, Deck gameDeck) {
-		
-		Game game = new Game();
-		
-		while (hasGameBeenWon()) {
-			runGame(gameDeck, player1, player2);
-		}
-		
-		game.setTurnsToWin(turnNumber);
-		game.setWinner(gameWinner.getName());
-		
-		System.out.println("COMING FROM GGAAMMMEEE this is gameHasBeenWon: " +
-						theDealer.hasGameBeenWon());
-			
-		System.out.println("Congratulations " + game.getWinner() + ", you have won the game!!");	
-	}
-
-	public boolean hasGameBeenWon() {
-		return gameHasBeenWon;
-	}
-
-	public Player getGameWinner() {
-		return gameWinner;
-	}
-
-	public int getTurnNumber() {
-		return turnNumber;
-	}
+//	public void play(Player player1, Player player2, Dealer theDealer, Deck gameDeck) {
+//		
+//		Game game = new Game();
+//		
+//		while (hasGameBeenWon()) {
+//			runGame(gameDeck, player1, player2);
+//		}
+//		
+//		game.setTurnsToWin(turnNumber);
+//		game.setWinner(gameWinner.getName());
+//		
+//		System.out.println("COMING FROM GGAAMMMEEE this is gameHasBeenWon: " +
+//						theDealer.hasGameBeenWon());
+//			
+//		System.out.println("Congratulations " + game.getWinner() + ", you have won the game!!");	
+//	}
+//
+//	public boolean hasGameBeenWon() {
+//		return gameHasBeenWon;
+//	}
+//
+//	public Player getGameWinner() {
+//		return gameWinner;
+//	}
+//
+//	public int getTurnNumber() {
+//		return turnNumber;
+//	}
 
 }

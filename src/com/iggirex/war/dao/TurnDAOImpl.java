@@ -51,5 +51,16 @@ public class TurnDAOImpl implements TurnDAO {
 		// return the results
 		return turns;
 	}
+	
+	@Override
+	public Turn saveTurn(Turn turn) {
+		
+		// get the current hibernate session
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		currentSession.saveOrUpdate(turn);
+		
+		return turn;
+	}
 
 }

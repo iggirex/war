@@ -24,33 +24,30 @@ public class WarController {
 		
 	@GetMapping("/")
 	public String getWar(Model theModel) {
-	
-		
 		
 		System.out.println("$$$$$$$$$$$$$$$$fdafsafadsfadsfasdfadsfadsfasd$$$$$$$$$$\n");
 		
 		System.out.println(theModel);
 		
 		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
-		System.out.println("does model contain turns");
-		System.out.println(theModel);
-
 		
-		if(!theModel.containsAttribute("turn")) {
-			Turn firstTurn = new Turn();
-			System.out.println("Adding furst turn");
-			theModel.addAttribute("turn", firstTurn);
-			
-			System.out.println(theModel.asMap());
-		} else {
-						
+		Turn firstTurn = dealerService.initializeGame();
+		
+//		if(!theModel.containsAttribute("turn")) {
+		
+//			Turn firstTurn = new Turn();
+//			System.out.println("Adding furst turn");
+//			theModel.addAttribute("turn", firstTurn);
+//			
+//			System.out.println(theModel.asMap());
+//			
+//		} else {
+
 			System.out.println("THE MODEL IS NO TNULL!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
 			
 			System.out.println(theModel);
 			
-		}
-		
-		System.out.println(theModel);
+//		}
 		
 		return "war";
 	}
@@ -65,24 +62,19 @@ public class WarController {
 		
 		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
 		System.out.println("does model contain turns");
-		System.out.println(thisTurn);
 
 		
-//		if(!theModel.containsAttribute("turns")) {
-//			Turn firstTurn = new Turn();
-//			System.out.println(" IN POST --- Adding furst turn");
+		Turn newTurn = dealerService.runTurn(thisTurn);
+		System.out.println(" IN POST --- Adding furst turn");
+		
 //			theModel.addAttribute("turn", firstTurn);
-//			
-//			System.out.println(theModel.asMap());
-//		} else {
-//						
-//			System.out.println("Tin post --- HE MODEL IS NO TNULL!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
-//			
-//			System.out.println(theModel);
-//			
-//		}
-//		
-//		System.out.println(theModel);
+		
+					
+		System.out.println("Tin post --- HE MODEL IS NO TNULL!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+		
+		System.out.println(newTurn);
+		
+		
 		
 		return "war";
 
