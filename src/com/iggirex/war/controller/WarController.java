@@ -8,8 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.iggirex.war.Player;
+import com.iggirex.war.entity.Game;
 import com.iggirex.war.entity.Turn;
 import com.iggirex.war.service.DealerService;
 
@@ -26,28 +27,20 @@ public class WarController {
 	public String getWar(Model theModel) {
 		
 		System.out.println("$$$$$$$$$$$$$$$$fdafsafadsfadsfasdfadsfadsfasd$$$$$$$$$$\n");
-		
 		System.out.println(theModel);
-		
 		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
 		
-		Turn firstTurn = dealerService.initializeGame();
+		Player player1 = new Player("player1");
+		Player player2 = new Player("player2");
 		
-//		if(!theModel.containsAttribute("turn")) {
+		Game game = new Game(player1, player2);
 		
-//			Turn firstTurn = new Turn();
-//			System.out.println("Adding furst turn");
-//			theModel.addAttribute("turn", firstTurn);
-//			
-//			System.out.println(theModel.asMap());
-//			
-//		} else {
+		Turn firstTurn = dealerService.makeFirstTurn(player1, player2);
+		
+		theModel.addAttribute("turn", firstTurn);
 
-			System.out.println("THE MODEL IS NO TNULL!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
-			
-			System.out.println(theModel);
-			
-//		}
+		System.out.println("THE MODEL IS NO TNULL!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+		System.out.println(theModel);
 		
 		return "war";
 	}
@@ -64,7 +57,10 @@ public class WarController {
 		System.out.println("does model contain turns");
 
 		
-		Turn newTurn = dealerService.runTurn(thisTurn);
+		Turn newTurn = new Turn(thisTurn.getPlayer1Score(), thisTurn.getPlayer1GameDeck(), thisTurn.getPlayer1WinDeck(), 
+				thisTurn.getPlayer2Score(), thisTurn.getPlayer2GameDeck(), thisTurn.getPlayer2WinDeck());
+				
+		dealerService.runTurn(thisTurn);
 		System.out.println(" IN POST --- Adding furst turn");
 		
 //			theModel.addAttribute("turn", firstTurn);
@@ -98,14 +94,6 @@ public class WarController {
 		
 		return "turn-list";
 	}
-	
-//	@PostMapping("/runTurn")
-//	public String runTurn(Model theModel) {
-//		
-//		Turn thisTurn = theModel.turns;
-//		
-//		return "war";
-//	}
 
 }
 

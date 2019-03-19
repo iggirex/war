@@ -38,6 +38,17 @@ public class Turn {
 		
 	}
 
+	public Turn(int player1Score, int player1GameDeck, int player1WinDeck, int player2Score,
+			int player2GameDeck, int player2WinDeck) {
+		this.id = id;
+		this.player1Score = player1Score;
+		this.player1GameDeck = player1GameDeck;
+		this.player1WinDeck = player1WinDeck;
+		this.player2Score = player2Score;
+		this.player2GameDeck = player2GameDeck;
+		this.player2WinDeck = player2WinDeck;
+	}
+
 	public int getId() {
 		return id;
 	}

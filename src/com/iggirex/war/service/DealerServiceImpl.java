@@ -9,11 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.iggirex.war.Card;
-import com.iggirex.war.Dealer;
 import com.iggirex.war.Deck;
-import com.iggirex.war.Game;
 import com.iggirex.war.Player;
 import com.iggirex.war.dao.TurnDAO;
+import com.iggirex.war.entity.Game;
 import com.iggirex.war.entity.Turn;
 
 @Service
@@ -22,94 +21,120 @@ public class DealerServiceImpl implements DealerService {
 	// need to inject customer DAO
 	@Autowired
 	private TurnDAO turnDAO;
-//	private boolean gameHasBeenWon;
-//	private Player gameWinner;
-//	public int turnNumber = 0;
+	
+	
+	
+	private boolean hasGameBeenWon;
+	private Player gameWinner;
 
 	// Use @Transactional because our service layer will define the
 	// beginning and end of a transaction.
 	// @Transactional saves you from having to .begin(), .commit(), .close()
 	
+	//	USE @Transactional here???? to store game obj??
 	@Override
-	public Turn initializeGame() {
-		
-		Player player1 = new Player("player1");
-		Player player2 = new Player("player2");
+	@Transactional
+	public Turn makeFirstTurn(Player player1, Player player2) {
 		
 		// make initial turn
 		Turn firstTurn = new Turn();
 		
-		// save initial turn
-		turnDAO.saveTurn(firstTurn);
-		
-		
 		// make initial deck / 
 		Deck initialDeck = makeInitialDeck();
 		
-		
 		// deal deck
-		deal();
+		deal(initialDeck.getCards(), player1, player2);
+
+		firstTurn.setPlayer1GameDeck(player1.getDeck().getCards().size());
+		firstTurn.setPlayer2GameDeck(player2.getDeck().getCards().size());
+		firstTurn.setPlayer1WinDeck(0);
+		firstTurn.setPlayer2WinDeck(0);
+		firstTurn.setPlayer1Score(player1.getTotalAmountOfCards());
+		firstTurn.setPlayer1Score(player2.getTotalAmountOfCards());		
 		
+		// save initial turn
+		turnDAO.saveTurn(firstTurn);
 		
 		// compare cards
-		
-		
+		compareCards(player1, player2, null);
 		
 		// return turn
-		
-		
 		return firstTurn;
+	}
+	
+	@Override
+	public Game initializeGame() {
 		
+		Player player1 = new Player("player1");
+		Player player2 = new Player("player2");
+		
+		Game newGame = new Game(player1, player2);
+		
+		return newGame;
+	}
+	
+	@Override
+	public void compareCards(Player player1, Player player2, Deck incomingWinPile) {
+		
+		// checking if game won up here because is less code for recursive call
+		setHasGameBeenWon(player1, player2);
+		
+		if (!hasGameBeenWon) {
+						
+			if(player1.getTotalAmountOfCards() < 2 || player2.getTotalAmountOfCards() < 2) {
+				System.out.println("Game about to possibly end");
+				System.out.println("Player1 cards before compare: " + player1.getDeck().getCards());
+				System.out.println("Player2 cards before compare: " + player2.getDeck().getCards());
+			}
+			
+			player1.turnWinDeckIntoPlayingDeck();
+			player2.turnWinDeckIntoPlayingDeck();
+
+			Deck winPile = incomingWinPile == null ? new Deck() : incomingWinPile;
+			
+			Card player1Card = player1.getDeck().takeACard();
+			Card player2Card = player2.getDeck().takeACard();
+			
+			System.out.println("COMPARING PLAYER1 CARD: " + player1Card + 
+								" TO PLAYER2 CARD: " + player2Card);
+			
+			winPile.addACard(player1Card);
+			winPile.addACard(player2Card);
+			
+			if(player1Card.getValue() > player2Card.getValue()) {
+				player1.addToWinDeck(winPile);
+				System.out.println("Player 1 just won, their game deck has: " + 
+									player1.getWinDeck().getCards().size() +
+									" and here is all their cards: " + player2.getTotalAmountOfCards());
+			} else if(player2Card.getValue() > player1Card.getValue()) {
+				player2.addToWinDeck(winPile);
+				System.out.println("Player 2 just won, their game deck has: " +
+									player2.getDeck().getCards().size() +
+						" and here is all their cards: " + player2.getTotalAmountOfCards());
+			} else {
+				compareCards(player1, player2, winPile);	
+			}			
+		}		
 	}
 	
 	
 	@Override
 	@Transactional
 	public List<Turn> getTurns() {
-		
 		return turnDAO.getTurns();
-	}
-	
-	@Transactional
-	private void saveTurn(Turn turn) {
-		
-		
-		
 	}
 	
 	@Override
 	public Turn runTurn(Turn turn) {
 		
-		
 		// totally empty turn comes in, add everything to turn
-		
 		// save turn
 		turnDAO.saveTurn(turn);
 		
-		// compare cards
-		
-		// resolve winner
-
 		return turn;
 	}
-	
-	
-	// start game
-	
-	public void startGame() {
-		
-		// make initial deck
-		
-		// deal cards
-		
-	}
-	
-	
-	
-	
-	
-	
 
+	@Override
 	public Deck makeInitialDeck(){
 		
 		Deck initialDeck = new Deck();
@@ -149,6 +174,7 @@ public class DealerServiceImpl implements DealerService {
 		return initialDeck;
 	}
 	
+	@Override
 	public void deal(ArrayList<Card> theDeck, Player player1, Player player2) {
 		
 		for(int i=0; i<theDeck.size(); i++) {
@@ -160,6 +186,21 @@ public class DealerServiceImpl implements DealerService {
 				player2.addToDeck(tempCard);
 			}
 		}
+	}
+	
+	@Override
+	public boolean setHasGameBeenWon(Player player1, Player player2) {
+		int player1Score = player1.getTotalAmountOfCards();
+		int player2Score = player2.getTotalAmountOfCards();
+		
+		if (player1Score == 0) {
+			hasGameBeenWon = true;
+			gameWinner = player2;
+		} else if (player2Score == 0) {
+			hasGameBeenWon = true;
+			gameWinner = player1;
+		}
+		return hasGameBeenWon;
 	}
 	
 	public void runGame(Deck gameDeck, Player player1, Player player2) {
@@ -176,6 +217,7 @@ public class DealerServiceImpl implements DealerService {
 //
 //		gameWinner = turn.getWinner();
 	}
+
 	
 //	public void play(Player player1, Player player2, Dealer theDealer, Deck gameDeck) {
 //		

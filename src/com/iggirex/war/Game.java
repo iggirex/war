@@ -19,6 +19,13 @@ public class Game {
 	@Column(name="winner")
 	private String winner;
 
+	public Game() {
+	}
+
+	public Game(Player player1, Player player2) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getTurnsToWin() {
 		return turnsToWin;
 	}

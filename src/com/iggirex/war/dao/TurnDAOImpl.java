@@ -53,6 +53,7 @@ public class TurnDAOImpl implements TurnDAO {
 	}
 	
 	@Override
+	@Transactional
 	public Turn saveTurn(Turn turn) {
 		
 		// get the current hibernate session
@@ -62,5 +63,7 @@ public class TurnDAOImpl implements TurnDAO {
 		
 		return turn;
 	}
+	
+	
 
 }
