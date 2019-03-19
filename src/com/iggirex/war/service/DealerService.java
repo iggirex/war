@@ -28,5 +28,7 @@ public interface DealerService {
 	boolean setHasGameBeenWon(Player player1, Player player2);
 
 	Turn makeFirstTurn(Player player1, Player player2);
+
+	Turn runTurn(Turn lastTurn, Player player1, Player player2);
 	
 }

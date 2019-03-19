@@ -22,8 +22,6 @@ public class DealerServiceImpl implements DealerService {
 	@Autowired
 	private TurnDAO turnDAO;
 	
-	
-	
 	private boolean hasGameBeenWon;
 	private Player gameWinner;
 
@@ -36,13 +34,9 @@ public class DealerServiceImpl implements DealerService {
 	@Transactional
 	public Turn makeFirstTurn(Player player1, Player player2) {
 		
-		// make initial turn
-		Turn firstTurn = new Turn();
-		
-		// make initial deck / 
+		Turn firstTurn = new Turn(); 
 		Deck initialDeck = makeInitialDeck();
 		
-		// deal deck
 		deal(initialDeck.getCards(), player1, player2);
 
 		firstTurn.setPlayer1GameDeck(player1.getDeck().getCards().size());
@@ -50,15 +44,14 @@ public class DealerServiceImpl implements DealerService {
 		firstTurn.setPlayer1WinDeck(0);
 		firstTurn.setPlayer2WinDeck(0);
 		firstTurn.setPlayer1Score(player1.getTotalAmountOfCards());
-		firstTurn.setPlayer1Score(player2.getTotalAmountOfCards());		
+		firstTurn.setPlayer2Score(player2.getTotalAmountOfCards());
 		
-		// save initial turn
-		turnDAO.saveTurn(firstTurn);
+//		firstTurn.setPlayer1(player1);
+//		firstTurn.setPlayer2(player2);
 		
-		// compare cards
-		compareCards(player1, player2, null);
+		turnDAO.saveTurn(firstTurn);		
+//		compareCards(player1, player2, null);
 		
-		// return turn
 		return firstTurn;
 	}
 	
@@ -67,7 +60,6 @@ public class DealerServiceImpl implements DealerService {
 		
 		Player player1 = new Player("player1");
 		Player player2 = new Player("player2");
-		
 		Game newGame = new Game(player1, player2);
 		
 		return newGame;
@@ -125,13 +117,19 @@ public class DealerServiceImpl implements DealerService {
 	}
 	
 	@Override
-	public Turn runTurn(Turn turn) {
+	public Turn runTurn(Turn lastTurn, Player player1, Player player2) {
 		
-		// totally empty turn comes in, add everything to turn
-		// save turn
-		turnDAO.saveTurn(turn);
+//		Turn newTurn = new Turn(lastTurn.getPlayer1Score(), lastTurn.getPlayer1GameDeck(), lastTurn.getPlayer1WinDeck(), 
+//				lastTurn.getPlayer2Score(), lastTurn.getPlayer2GameDeck(), lastTurn.getPlayer2WinDeck(), player1, player2);
 		
-		return turn;
+		Turn newTurn = new Turn(lastTurn.getPlayer1Score(), lastTurn.getPlayer1GameDeck(), lastTurn.getPlayer1WinDeck(), 
+				lastTurn.getPlayer2Score(), lastTurn.getPlayer2GameDeck(), lastTurn.getPlayer2WinDeck());
+		
+		compareCards(player1, player2, null);
+		
+		turnDAO.saveTurn(newTurn);
+		
+		return newTurn;
 	}
 
 	@Override
@@ -216,6 +214,12 @@ public class DealerServiceImpl implements DealerService {
 //							+ "=========================\n");
 //
 //		gameWinner = turn.getWinner();
+	}
+
+	@Override
+	public Turn runTurn(Turn turn) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

@@ -37,7 +37,9 @@ public class WarController {
 		
 		Turn firstTurn = dealerService.makeFirstTurn(player1, player2);
 		
+//		theModel.addAttribute("game", game);
 		theModel.addAttribute("turn", firstTurn);
+		
 
 		System.out.println("THE MODEL IS NO TNULL!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
 		System.out.println(theModel);
@@ -47,34 +49,20 @@ public class WarController {
 	
 	@PostMapping("/postWar")
 	public String postWar(@ModelAttribute("turn") Turn thisTurn) {
-	
 		
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
-		
+		System.out.println("$$$$$$$$$$$ Turn coming into Post:::: $$$$$$$$$$$$\n");
 		System.out.println(thisTurn);
-		
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
-		System.out.println("does model contain turns");
 
+		Turn newTurn = dealerService.runTurn(thisTurn);
 		
-		Turn newTurn = new Turn(thisTurn.getPlayer1Score(), thisTurn.getPlayer1GameDeck(), thisTurn.getPlayer1WinDeck(), 
-				thisTurn.getPlayer2Score(), thisTurn.getPlayer2GameDeck(), thisTurn.getPlayer2WinDeck());
-				
-		dealerService.runTurn(thisTurn);
-		System.out.println(" IN POST --- Adding furst turn");
+		System.out.println(" IN POST --- AFTER RUNNING TURN TURN IS:");
+		System.out.println(this);
 		
 //			theModel.addAttribute("turn", firstTurn);
-		
-					
 		System.out.println("Tin post --- HE MODEL IS NO TNULL!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
-		
 		System.out.println(newTurn);
 		
-		
-		
 		return "war";
-
-//		return "redirect:/turns";
 	}
 	
 	

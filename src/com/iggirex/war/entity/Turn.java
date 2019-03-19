@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.iggirex.war.Player;
+
 @Entity
 @Table(name="turn_tbl")
 public class Turn {
@@ -34,20 +36,40 @@ public class Turn {
 	@Column(name="player2WinDeck")
 	private int player2WinDeck;
 	
+//	private Player player1;
+//	private Player player2;
+	
 	public Turn() {
 		
 	}
-
+	
 	public Turn(int player1Score, int player1GameDeck, int player1WinDeck, int player2Score,
 			int player2GameDeck, int player2WinDeck) {
-		this.id = id;
+
 		this.player1Score = player1Score;
 		this.player1GameDeck = player1GameDeck;
 		this.player1WinDeck = player1WinDeck;
 		this.player2Score = player2Score;
 		this.player2GameDeck = player2GameDeck;
 		this.player2WinDeck = player2WinDeck;
+		
+//		this.player1 = player1;
+//		this.player2 = player2;
 	}
+
+//	public Turn(int player1Score, int player1GameDeck, int player1WinDeck, int player2Score,
+//			int player2GameDeck, int player2WinDeck, Player player1, Player player2) {
+//
+//		this.player1Score = player1Score;
+//		this.player1GameDeck = player1GameDeck;
+//		this.player1WinDeck = player1WinDeck;
+//		this.player2Score = player2Score;
+//		this.player2GameDeck = player2GameDeck;
+//		this.player2WinDeck = player2WinDeck;
+//		
+//		this.player1 = player1;
+//		this.player2 = player2;
+//	}
 
 	public int getId() {
 		return id;
@@ -104,6 +126,24 @@ public class Turn {
 	public void setPlayer2WinDeck(int player2WinDeck) {
 		this.player2WinDeck = player2WinDeck;
 	}
+	
+	
+
+//	public Player getPlayer1() {
+//		return player1;
+//	}
+//
+//	public void setPlayer1(Player player1) {
+//		this.player1 = player1;
+//	}
+//
+//	public Player getPlayer2() {
+//		return player2;
+//	}
+//
+//	public void setPlayer2(Player player2) {
+//		this.player2 = player2;
+//	}
 
 	@Override
 	public String toString() {

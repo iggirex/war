@@ -110,6 +110,19 @@
 				<form:form method="POST" modelAttribute="turn" action="postWar">
 				
 					<form:hidden path="id" />
+<%-- 					<form:hidden path="player1" />
+					<form:hidden path="player2" /> --%>
+					
+					<form:hidden path="player1Score" />
+					<form:hidden path="player1GameDeck" />
+					<form:hidden path="player1WinDeck" />
+					
+					<form:hidden path="player2Score" />
+					<form:hidden path="player2GameDeck" />
+					<form:hidden path="player2WinDeck" />
+					
+					<!-- add all the things here, give player 2 a Score... why it zero?? -->
+					
 				
 					<input type="submit" value="DRAW" />
 					
