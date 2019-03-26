@@ -76,6 +76,10 @@ public class Player {
 	}
 
 	public int getAmountOfCards() {
+		
+		System.out.println("FAILING HERE. this is player deck:");
+		System.out.println(deck);
+		
 		return deck.getCards().size();
 	}
 	

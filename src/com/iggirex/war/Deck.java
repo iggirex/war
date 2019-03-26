@@ -23,5 +23,10 @@ public class Deck {
 	public void setCards(ArrayList<Card> cards) {
 		this.cards = cards;
 	}
+
+	@Override
+	public String toString() {
+		return "Deck [cards=" + cards + "]";
+	}
 	
 }

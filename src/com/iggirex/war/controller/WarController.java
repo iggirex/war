@@ -50,10 +50,25 @@ public class WarController {
 	@PostMapping("/postWar")
 	public String postWar(@ModelAttribute("turn") Turn thisTurn) {
 		
+		System.out.println("FUKCING HELLO");
+		
 		System.out.println("$$$$$$$$$$$ Turn coming into Post:::: $$$$$$$$$$$$\n");
 		System.out.println(thisTurn);
-
-		Turn newTurn = dealerService.runTurn(thisTurn);
+		
+		Player tempPlayer = thisTurn.getPlayer1();
+		
+		System.out.println("\n\n OK OK OK this is tempPLAYERRRRRROU");
+		System.out.println(tempPlayer);
+		
+		System.out.println("\n EY! EY!!! This is player1 WinDeck: ");
+		System.out.println(thisTurn.getPlayer2WinDeck());
+		
+		
+		System.out.println("and these iz player1 coming into Post:");
+		System.out.println(thisTurn.getPlayer1());
+		System.out.println("\n");
+		
+		Turn newTurn = dealerService.runTurn(thisTurn, thisTurn.getPlayer1(), thisTurn.getPlayer2());
 		
 		System.out.println(" IN POST --- AFTER RUNNING TURN TURN IS:");
 		System.out.println(this);
@@ -61,6 +76,9 @@ public class WarController {
 //			theModel.addAttribute("turn", firstTurn);
 		System.out.println("Tin post --- HE MODEL IS NO TNULL!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
 		System.out.println(newTurn);
+		
+		
+		thisTurn.setPlayer1Score(thisTurn.getPlayer1Score() + 1);
 		
 		return "war";
 	}

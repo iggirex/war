@@ -90,16 +90,12 @@
 					</div>
 				
 				</div>
-				
 			</div>
-				
 		</div>
-		
 		
 		<div id="rightGameContainer" class="middle-inner-container middle-inner-container-right transparent">
 		</div>
 	</div>
-	
 	
 	<div id="bottomContainer" class="display-flex transparent row-container vh30">
 	
@@ -110,8 +106,8 @@
 				<form:form method="POST" modelAttribute="turn" action="postWar">
 				
 					<form:hidden path="id" />
-<%-- 					<form:hidden path="player1" />
-					<form:hidden path="player2" /> --%>
+					<form:hidden path="player1" />
+					<form:hidden path="player2" />
 					
 					<form:hidden path="player1Score" />
 					<form:hidden path="player1GameDeck" />
@@ -119,10 +115,7 @@
 					
 					<form:hidden path="player2Score" />
 					<form:hidden path="player2GameDeck" />
-					<form:hidden path="player2WinDeck" />
-					
-					<!-- add all the things here, give player 2 a Score... why it zero?? -->
-					
+					<form:hidden path="player2WinDeck" />					
 				
 					<input type="submit" value="DRAW" />
 					
