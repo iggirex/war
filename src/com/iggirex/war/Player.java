@@ -107,6 +107,13 @@ public class Player {
 		return "Player [name=" + name + ", deck=" + deck + ", winDeck=" + winDeck + "]";
 	}
 	
+	public String deckToString() {
+		return "name = " + name + "  >>>> Deck = " + deck;
+	}
+	
+	public String winDeckToString() {
+		return "name = " + name + "  >>>> Deck = " + winDeck;
+	}
 	
 	
 	

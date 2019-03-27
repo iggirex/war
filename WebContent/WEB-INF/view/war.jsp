@@ -109,6 +109,24 @@
 					<form:hidden path="player1" />
 					<form:hidden path="player2" />
 					
+					 
+				<%-- 	 <table>
+					 	<tr>
+						 	<td>Hidden value (view source to see it) :</td>
+							<td><form:hidden path="id" /></td>
+					 	</tr>
+					 	<tr>
+						 	<td>Hidden value (view source to see it) :</td>
+							<td><form:hidden path="player1" /></td>
+					 	</tr>
+					 	<tr>
+						 	<td>Hidden value (view source to see it) :</td>
+							<td><form:hidden path="player2" /></td>
+					 	</tr>
+					 </table> --%>
+					
+					
+					
 					<form:hidden path="player1Score" />
 					<form:hidden path="player1GameDeck" />
 					<form:hidden path="player1WinDeck" />

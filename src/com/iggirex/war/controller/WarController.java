@@ -26,10 +26,6 @@ public class WarController {
 	@GetMapping("/")
 	public String getWar(Model theModel) {
 		
-		System.out.println("$$$$$$$$$$$$$$$$fdafsafadsfadsfasdfadsfadsfasd$$$$$$$$$$\n");
-		System.out.println(theModel);
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
-		
 		Player player1 = new Player("player1");
 		Player player2 = new Player("player2");
 		
@@ -40,45 +36,42 @@ public class WarController {
 //		theModel.addAttribute("game", game);
 		theModel.addAttribute("turn", firstTurn);
 		
-
-		System.out.println("THE MODEL IS NO TNULL!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
-		System.out.println(theModel);
-		
 		return "war";
 	}
 	
 	@PostMapping("/postWar")
 	public String postWar(@ModelAttribute("turn") Turn thisTurn) {
-		
-		System.out.println("FUKCING HELLO");
-		
+				
 		System.out.println("$$$$$$$$$$$ Turn coming into Post:::: $$$$$$$$$$$$\n");
 		System.out.println(thisTurn);
 		
 		Player tempPlayer = thisTurn.getPlayer1();
-		
 		System.out.println("\n\n OK OK OK this is tempPLAYERRRRRROU");
-		System.out.println(tempPlayer);
-		
-		System.out.println("\n EY! EY!!! This is player1 WinDeck: ");
-		System.out.println(thisTurn.getPlayer2WinDeck());
-		
-		
-		System.out.println("and these iz player1 coming into Post:");
+		System.out.println(thisTurn.getPlayer1GameDeck());
 		System.out.println(thisTurn.getPlayer1());
-		System.out.println("\n");
+//		System.out.println(thisTurn.getPlayer1().getAmountOfCards());
+		
+		
+		if(thisTurn.getPlayer1() instanceof Player) {
+			System.out.println("IT IS PLAYER INSTANCE");
+		} else {
+			System.out.println("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOT A PLAYER INSTANCEOOOOOOOOOOOOOOOOOOOO");
+		}
+//		
+//		System.out.println("\n EY! EY!!! This is player1 WinDeck: ");
+//		System.out.println(thisTurn.getPlayer2WinDeck());
 		
 		Turn newTurn = dealerService.runTurn(thisTurn, thisTurn.getPlayer1(), thisTurn.getPlayer2());
 		
-		System.out.println(" IN POST --- AFTER RUNNING TURN TURN IS:");
-		System.out.println(this);
 		
-//			theModel.addAttribute("turn", firstTurn);
-		System.out.println("Tin post --- HE MODEL IS NO TNULL!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+		
+		
+		
+		System.out.println(" IN POST --- AFTER RUNNING TURN TURN IS:");
 		System.out.println(newTurn);
 		
-		
-		thisTurn.setPlayer1Score(thisTurn.getPlayer1Score() + 1);
+//			theModel.addAttribute("turn", firstTurn);		
+//		thisTurn.setPlayer1Score(thisTurn.getPlayer1Score() + 1);
 		
 		return "war";
 	}

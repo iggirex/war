@@ -50,10 +50,17 @@ public class DealerServiceImpl implements DealerService {
 		firstTurn.setPlayer2(player2);
 		
 		turnDAO.saveTurn(firstTurn);		
-//		compareCards(player1, player2, null);
 		
-		System.out.println("INSIDE makeFirstTurn, do player1 have decks????");
-		System.out.println(firstTurn.getPlayer1());
+		System.out.println("\n$$$ IN MAKIE FIRST TUNR!!!");
+		
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>> tis iz player2 deck to Striung");
+		
+		System.out.println(player2);
+		System.out.println(player2.getDeck());
+
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>> VS lastTurn.getPlayer2() deck to Striung");
+		
+		System.out.println(firstTurn.getPlayer2().deckToString());
 		
 		return firstTurn;
 	}
@@ -61,14 +68,18 @@ public class DealerServiceImpl implements DealerService {
 	@Override
 	public Turn runTurn(Turn lastTurn, Player player1, Player player2) {
 		
-		System.out.println("INSIDE RUN TRUNR");
+		System.out.println("INSIDE RUN TRUNR\n");
 		
 		
-		System.out.println("tis iz player1, is top of his head null????");
+		System.out.println("\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>> tis iz player2 deck to Striung");
 		
-		System.out.println(player1.getAmountOfCards());
 		System.out.println(player2);
-
+		System.out.println(player2.getDeck());
+		
+		System.out.println("\n\n");
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>> VS lastTurn.getPlayer2() deck to Striung");
+		
+		System.out.println(lastTurn.getPlayer2().deckToString());
 		
 		
 		Turn newTurn = new Turn(lastTurn.getPlayer1Score(), lastTurn.getPlayer1GameDeck(), lastTurn.getPlayer1WinDeck(), 
@@ -98,6 +109,15 @@ public class DealerServiceImpl implements DealerService {
 	public void compareCards(Player player1, Player player2, Deck incomingWinPile) {
 		
 		// checking if game won up here because is less code for recursive call
+		
+		System.out.println("\n\nmaking failing call in compare cards");
+		
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>> tis iz player2 AND  deck to Striung");
+		
+		System.out.println(player2);
+		System.out.println(player2.deckToString());
+		
+		
 		setHasGameBeenWon(player1, player2);
 		
 		if (!hasGameBeenWon) {
@@ -201,6 +221,12 @@ public class DealerServiceImpl implements DealerService {
 	
 	@Override
 	public boolean setHasGameBeenWon(Player player1, Player player2) {
+		
+		System.out.println("\n\n INSIDE SET HAS GAME BEEN WON\nThis is player1's deck:");
+		
+		System.out.println(player1.deckToString());
+		System.out.println(player1.getDeck());
+		
 		int player1Score = player1.getTotalAmountOfCards();
 		int player2Score = player2.getTotalAmountOfCards();
 		
@@ -213,50 +239,5 @@ public class DealerServiceImpl implements DealerService {
 		}
 		return hasGameBeenWon;
 	}
-	
-	public void runGame(Deck gameDeck, Player player1, Player player2) {
-//		
-//		System.out.println("\n======================== Beginning of Turn " 
-//							+ turnNumber + " =============================");
-//		
-//		Turn turn = new Turn();
-//		gameHasBeenWon = turn.runTurns(gameDeck, player1, player2);
-//		turnNumber++;
-//		
-//		System.out.println("=================================================="
-//							+ "=========================\n");
-//
-//		gameWinner = turn.getWinner();
-	}
-
-	
-//	public void play(Player player1, Player player2, Dealer theDealer, Deck gameDeck) {
-//		
-//		Game game = new Game();
-//		
-//		while (hasGameBeenWon()) {
-//			runGame(gameDeck, player1, player2);
-//		}
-//		
-//		game.setTurnsToWin(turnNumber);
-//		game.setWinner(gameWinner.getName());
-//		
-//		System.out.println("COMING FROM GGAAMMMEEE this is gameHasBeenWon: " +
-//						theDealer.hasGameBeenWon());
-//			
-//		System.out.println("Congratulations " + game.getWinner() + ", you have won the game!!");	
-//	}
-//
-//	public boolean hasGameBeenWon() {
-//		return gameHasBeenWon;
-//	}
-//
-//	public Player getGameWinner() {
-//		return gameWinner;
-//	}
-//
-//	public int getTurnNumber() {
-//		return turnNumber;
-//	}
 
 }
