@@ -32,67 +32,51 @@ public class DealerServiceImpl implements DealerService {
 	//	USE @Transactional here???? to store game obj??
 	@Override
 	@Transactional
-	public Turn makeFirstTurn(Player player1, Player player2) {
+	public Turn makeFirstTurn(Turn firstTurn) {
 		
-		Turn firstTurn = new Turn(); 
 		Deck initialDeck = makeInitialDeck();
 		
-		deal(initialDeck.getCards(), player1, player2);
+		firstTurn.setPlayer1(new Player("player1"));
+		firstTurn.setPlayer2(new Player("player2"));
+		
+		deal(initialDeck.getCards(), firstTurn.getPlayer1(), firstTurn.getPlayer2());
 
-		firstTurn.setPlayer1GameDeck(player1.getDeck().getCards().size());
-		firstTurn.setPlayer2GameDeck(player2.getDeck().getCards().size());
+		firstTurn.setPlayer1GameDeck(firstTurn.getPlayer1().getDeck().getCards().size());
+		firstTurn.setPlayer2GameDeck(firstTurn.getPlayer2().getDeck().getCards().size());
 		firstTurn.setPlayer1WinDeck(0);
 		firstTurn.setPlayer2WinDeck(0);
-		firstTurn.setPlayer1Score(player1.getTotalAmountOfCards());
-		firstTurn.setPlayer2Score(player2.getTotalAmountOfCards());
+		firstTurn.setPlayer1Score(firstTurn.getPlayer1().getTotalAmountOfCards());
+		firstTurn.setPlayer2Score(firstTurn.getPlayer2().getTotalAmountOfCards());
 		
-		firstTurn.setPlayer1(player1);
-		firstTurn.setPlayer2(player2);
+		firstTurn.setPlayer1(firstTurn.getPlayer1());
+		firstTurn.setPlayer2(firstTurn.getPlayer2());
 		
 		turnDAO.saveTurn(firstTurn);		
-		
-		System.out.println("\n$$$ IN MAKIE FIRST TUNR!!!");
-		
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>> tis iz player2 deck to Striung");
-		
-		System.out.println(player2);
-		System.out.println(player2.getDeck());
 
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>> VS lastTurn.getPlayer2() deck to Striung");
-		
-		System.out.println(firstTurn.getPlayer2().deckToString());
-		
 		return firstTurn;
 	}
 	
 	@Override
-	public Turn runTurn(Turn lastTurn, Player player1, Player player2) {
-		
+	public Turn runTurn(Turn turn, Player player1, Player player2) {
 		System.out.println("INSIDE RUN TRUNR\n");
-		
-		
 		System.out.println("\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>> tis iz player2 deck to Striung");
-		
 		System.out.println(player2);
 		System.out.println(player2.getDeck());
+//		System.out.println("\n\n");
+//		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>> VS lastTurn.getPlayer2() deck to Striung");
+//		System.out.println(turn.getPlayer2().deckToString());
 		
-		System.out.println("\n\n");
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>> VS lastTurn.getPlayer2() deck to Striung");
+		System.out.println(turn);
 		
-		System.out.println(lastTurn.getPlayer2().deckToString());
+//		compareCards(turn.getPlayer1(), turn.getPlayer2(), null);
 		
+		compareCards(turn, null);
 		
-		Turn newTurn = new Turn(lastTurn.getPlayer1Score(), lastTurn.getPlayer1GameDeck(), lastTurn.getPlayer1WinDeck(), 
-				lastTurn.getPlayer2Score(), lastTurn.getPlayer2GameDeck(), lastTurn.getPlayer2WinDeck(), player1, player2);
+		System.out.println(turn);
 		
-//		Turn newTurn = new Turn(lastTurn.getPlayer1Score(), lastTurn.getPlayer1GameDeck(), lastTurn.getPlayer1WinDeck(), 
-//				lastTurn.getPlayer2Score(), lastTurn.getPlayer2GameDeck(), lastTurn.getPlayer2WinDeck());
+		turnDAO.saveTurn(turn);
 		
-		compareCards(player1, player2, null);
-		
-		turnDAO.saveTurn(newTurn);
-		
-		return newTurn;
+		return turn;
 	}
 	
 	@Override
@@ -104,59 +88,151 @@ public class DealerServiceImpl implements DealerService {
 		
 		return newGame;
 	}
+
+	
 	
 	@Override
-	public void compareCards(Player player1, Player player2, Deck incomingWinPile) {
-		
-		// checking if game won up here because is less code for recursive call
-		
+	public void compareCards(Turn turn, Deck incomingWinPile) {
+				
 		System.out.println("\n\nmaking failing call in compare cards");
 		
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>> tis iz player2 AND  deck to Striung");
+		setHasGameBeenWon(turn.getPlayer1(), turn.getPlayer2());
 		
-		System.out.println(player2);
-		System.out.println(player2.deckToString());
-		
-		
-		setHasGameBeenWon(player1, player2);
-		
+		// checking if game won up here because is less code for recursive call
 		if (!hasGameBeenWon) {
 						
-			if(player1.getTotalAmountOfCards() < 2 || player2.getTotalAmountOfCards() < 2) {
+			if(turn.getPlayer1().getTotalAmountOfCards() < 2 || turn.getPlayer2().getTotalAmountOfCards() < 2) {
 				System.out.println("Game about to possibly end");
-				System.out.println("Player1 cards before compare: " + player1.getDeck().getCards());
-				System.out.println("Player2 cards before compare: " + player2.getDeck().getCards());
+//				System.out.println("Player1 cards before compare: " + player1.getDeck().getCards());
+//				System.out.println("Player2 cards before compare: " + player2.getDeck().getCards());
 			}
+			
+			Player player1 = turn.getPlayer1();
+			int test = player1.getAmountOfCards();
+			
+			Player player2 = turn.getPlayer1();
+			
 			
 			player1.turnWinDeckIntoPlayingDeck();
 			player2.turnWinDeckIntoPlayingDeck();
+			
+//			turn.getPlayer2().turnWinDeckIntoPlayingDeck();
+			System.out.println(turn);
+			
 
 			Deck winPile = incomingWinPile == null ? new Deck() : incomingWinPile;
 			
 			Card player1Card = player1.getDeck().takeACard();
 			Card player2Card = player2.getDeck().takeACard();
+//			Card player2Card = turn.getPlayer2().getDeck().takeACard();
+			
+			
+			System.out.println(player1);
+			int test2 = player1.getAmountOfCards();
+			
+			System.out.println(turn.getPlayer1());
 			
 			System.out.println("COMPARING PLAYER1 CARD: " + player1Card + 
 								" TO PLAYER2 CARD: " + player2Card);
 			
+			// new to SET turn's player variables, these methods are not doing it !@!!!!!!!
+			
+
+//			turn.setPlayer1Score(69);
+			  
+			
 			winPile.addACard(player1Card);
 			winPile.addACard(player2Card);
 			
+			System.out.println(turn);
+			
 			if(player1Card.getValue() > player2Card.getValue()) {
 				player1.addToWinDeck(winPile);
+				turn.setPlayer1(player1);
+				
+				turn.setPlayer1Score(player1.getTotalAmountOfCards());
+				
+				
+				
 				System.out.println("Player 1 just won, their game deck has: " + 
-									player1.getWinDeck().getCards().size() +
-									" and here is all their cards: " + player2.getTotalAmountOfCards());
+									turn.getPlayer1().getWinDeck().getCards().size() +
+									" and here is all their cards: " + turn.getPlayer2().getTotalAmountOfCards());
+				System.out.println(turn);
 			} else if(player2Card.getValue() > player1Card.getValue()) {
 				player2.addToWinDeck(winPile);
+				
+				
+				player2.addToWinDeck(winPile);
+				turn.setPlayer1(player2);
+				
+				turn.setPlayer2Score(player2.getTotalAmountOfCards());
+				
+				
 				System.out.println("Player 2 just won, their game deck has: " +
-									player2.getDeck().getCards().size() +
-						" and here is all their cards: " + player2.getTotalAmountOfCards());
+									turn.getPlayer2().getDeck().getCards().size() +
+						" and here is all their cards: " + turn.getPlayer2().getTotalAmountOfCards());
+				System.out.println(turn);
 			} else {
-				compareCards(player1, player2, winPile);	
+				compareCards(turn, winPile);	
 			}			
 		}		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	@Override
+//	public void compareCards(Player player1, Player player2, Deck incomingWinPile) {
+//				
+//		System.out.println("\n\nmaking failing call in compare cards");
+//		
+//		setHasGameBeenWon(player1, player2);
+//		
+//		// checking if game won up here because is less code for recursive call
+//		if (!hasGameBeenWon) {
+//						
+//			if(player1.getTotalAmountOfCards() < 2 || player2.getTotalAmountOfCards() < 2) {
+//				System.out.println("Game about to possibly end");
+//				System.out.println("Player1 cards before compare: " + player1.getDeck().getCards());
+//				System.out.println("Player2 cards before compare: " + player2.getDeck().getCards());
+//			}
+//			
+//			player1.turnWinDeckIntoPlayingDeck();
+//			player2.turnWinDeckIntoPlayingDeck();
+//
+//			Deck winPile = incomingWinPile == null ? new Deck() : incomingWinPile;
+//			
+//			Card player1Card = player1.getDeck().takeACard();
+//			Card player2Card = player2.getDeck().takeACard();
+//			
+//			System.out.println("COMPARING PLAYER1 CARD: " + player1Card + 
+//								" TO PLAYER2 CARD: " + player2Card);
+//			
+//			winPile.addACard(player1Card);
+//			winPile.addACard(player2Card);
+//			
+//			if(player1Card.getValue() > player2Card.getValue()) {
+//				player1.addToWinDeck(winPile);
+//				System.out.println("Player 1 just won, their game deck has: " + 
+//									player1.getWinDeck().getCards().size() +
+//									" and here is all their cards: " + player2.getTotalAmountOfCards());
+//			} else if(player2Card.getValue() > player1Card.getValue()) {
+//				player2.addToWinDeck(winPile);
+//				System.out.println("Player 2 just won, their game deck has: " +
+//									player2.getDeck().getCards().size() +
+//						" and here is all their cards: " + player2.getTotalAmountOfCards());
+//			} else {
+//				compareCards(player1, player2, winPile);	
+//			}			
+//		}		
+//	}
 	
 	
 	@Override
@@ -207,6 +283,12 @@ public class DealerServiceImpl implements DealerService {
 	
 	@Override
 	public void deal(ArrayList<Card> theDeck, Player player1, Player player2) {
+		
+		Deck player1StartingDeck = new Deck();
+		Deck player2StartingDeck = new Deck();
+		
+		player1.setDeck(player1StartingDeck);
+		player2.setDeck(player2StartingDeck);
 		
 		for(int i=0; i<theDeck.size(); i++) {
 			Card tempCard = theDeck.get(i);

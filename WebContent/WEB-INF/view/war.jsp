@@ -22,7 +22,7 @@
 				<div class="player-label">PLAYER 2</div>
 				<div class="player-score-container flex-column-evenly center-center">
 					
-					26			
+					${turn.player2Score}		
 				</div>
 			</div>
 			
@@ -103,37 +103,8 @@
 			
 			<div id="draw-button" class="display-flex center-center fs30">
 			
-				<form:form method="POST" modelAttribute="turn" action="postWar">
-				
-					<form:hidden path="id" />
-					<form:hidden path="player1" />
-					<form:hidden path="player2" />
-					
-					 
-				<%-- 	 <table>
-					 	<tr>
-						 	<td>Hidden value (view source to see it) :</td>
-							<td><form:hidden path="id" /></td>
-					 	</tr>
-					 	<tr>
-						 	<td>Hidden value (view source to see it) :</td>
-							<td><form:hidden path="player1" /></td>
-					 	</tr>
-					 	<tr>
-						 	<td>Hidden value (view source to see it) :</td>
-							<td><form:hidden path="player2" /></td>
-					 	</tr>
-					 </table> --%>
-					
-					
-					
-					<form:hidden path="player1Score" />
-					<form:hidden path="player1GameDeck" />
-					<form:hidden path="player1WinDeck" />
-					
-					<form:hidden path="player2Score" />
-					<form:hidden path="player2GameDeck" />
-					<form:hidden path="player2WinDeck" />					
+				<form:form method="GET" modelAttribute="turn" action="nextTurn">
+								
 				
 					<input type="submit" value="DRAW" />
 					
@@ -141,7 +112,8 @@
 			</div>
 			
 			<div id="forfeit-button" class="display-flex center-center fs30">
-				FOREFEIT
+				<!-- FOREFEIT -->
+				<p>${turn.player1Score}</p>
 			</div>
 			
 			<div id="back-button" class="display-flex center-center fs30">
@@ -166,7 +138,7 @@
 				<div class="player-label">PLAYER 1</div>
 				<div class="player-score-container flex-column-evenly center-center">
 					
-					26
+					${turn.player1Score}
 
 				</div>
 			</div>

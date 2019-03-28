@@ -16,7 +16,7 @@ public interface DealerService {
 	
 	public Game initializeGame();
 	
-	void compareCards(Player player1, Player player2, Deck incomingWinPile);
+	void compareCards(Turn turn, Deck incomingWinPile);
 
 	Deck makeInitialDeck();
 
@@ -24,7 +24,7 @@ public interface DealerService {
 
 	boolean setHasGameBeenWon(Player player1, Player player2);
 
-	Turn makeFirstTurn(Player player1, Player player2);
+	Turn makeFirstTurn(Turn firstTurn);
 
 	Turn runTurn(Turn lastTurn, Player player1, Player player2);
 	

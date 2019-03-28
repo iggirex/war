@@ -72,6 +72,20 @@ public class Turn {
 		this.player1 = player1;
 		this.player2 = player2;
 	}
+	
+	public void setTurn(Turn newTurn) {
+		
+		this.player1Score = newTurn.getPlayer1Score();
+		this.player1GameDeck = newTurn.getPlayer1GameDeck();
+		this.player1WinDeck = newTurn.getPlayer1WinDeck();
+		this.player2Score = newTurn.getPlayer2Score();
+		this.player2GameDeck = newTurn.getPlayer2GameDeck();
+		this.player2WinDeck = newTurn.getPlayer2WinDeck();
+		
+		this.player1 = newTurn.getPlayer1();
+		this.player2 = newTurn.getPlayer2();
+		
+	}
 
 	public int getId() {
 		return id;
