@@ -58,10 +58,10 @@ public class DealerServiceImpl implements DealerService {
 	
 	@Override
 	public Turn runTurn(Turn turn, Player player1, Player player2) {
-		System.out.println("INSIDE RUN TRUNR\n");
-		System.out.println("\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>> tis iz player2 deck to Striung");
-		System.out.println(player2);
-		System.out.println(player2.getDeck());
+		System.out.println("\nINSIDE RUN TRUNR");
+//		System.out.println("\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>> tis iz player2 deck to Striung");
+//		System.out.println(player2);
+//		System.out.println(player2.getDeck());
 //		System.out.println("\n\n");
 //		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>> VS lastTurn.getPlayer2() deck to Striung");
 //		System.out.println(turn.getPlayer2().deckToString());
@@ -72,6 +72,7 @@ public class DealerServiceImpl implements DealerService {
 		
 		compareCards(turn, null);
 		
+ 		System.out.println("\n>>>>>>>>>>>>>>>>>>>>>>>>>>> did compareCards change turn obj????\n");
 		System.out.println(turn);
 		
 		turnDAO.saveTurn(turn);
@@ -93,9 +94,7 @@ public class DealerServiceImpl implements DealerService {
 	
 	@Override
 	public void compareCards(Turn turn, Deck incomingWinPile) {
-				
-		System.out.println("\n\nmaking failing call in compare cards");
-		
+						
 		setHasGameBeenWon(turn.getPlayer1(), turn.getPlayer2());
 		
 		// checking if game won up here because is less code for recursive call
@@ -103,8 +102,6 @@ public class DealerServiceImpl implements DealerService {
 						
 			if(turn.getPlayer1().getTotalAmountOfCards() < 2 || turn.getPlayer2().getTotalAmountOfCards() < 2) {
 				System.out.println("Game about to possibly end");
-//				System.out.println("Player1 cards before compare: " + player1.getDeck().getCards());
-//				System.out.println("Player2 cards before compare: " + player2.getDeck().getCards());
 			}
 			
 			Player player1 = turn.getPlayer1();
@@ -112,19 +109,23 @@ public class DealerServiceImpl implements DealerService {
 			
 			Player player2 = turn.getPlayer1();
 			
-			
 			player1.turnWinDeckIntoPlayingDeck();
 			player2.turnWinDeckIntoPlayingDeck();
 			
-//			turn.getPlayer2().turnWinDeckIntoPlayingDeck();
-			System.out.println(turn);
-			
-
 			Deck winPile = incomingWinPile == null ? new Deck() : incomingWinPile;
 			
-			Card player1Card = player1.getDeck().takeACard();
-			Card player2Card = player2.getDeck().takeACard();
-//			Card player2Card = turn.getPlayer2().getDeck().takeACard();
+			
+			Card player1Card = takeTopCard(player1);
+			Card player2Card = takeTopCard(player2);
+			turn.getPlayer1().setDeck(player1.getDeck());
+			turn.getPlayer2().setDeck(player2.getDeck());
+			
+			
+			System.out.println("\n******************* \nBout to set player 1 total Cards and iz::::");
+			System.out.println(player1.getDeck());
+			int amountOfCards = player1.getAmountOfCards(); 
+			System.out.println(amountOfCards);
+			System.out.println("******************* \nBout to set player 1 total Cards and iz::::\n");
 			
 			
 			System.out.println(player1);
@@ -135,12 +136,6 @@ public class DealerServiceImpl implements DealerService {
 			System.out.println("COMPARING PLAYER1 CARD: " + player1Card + 
 								" TO PLAYER2 CARD: " + player2Card);
 			
-			// new to SET turn's player variables, these methods are not doing it !@!!!!!!!
-			
-
-//			turn.setPlayer1Score(69);
-			  
-			
 			winPile.addACard(player1Card);
 			winPile.addACard(player2Card);
 			
@@ -148,9 +143,17 @@ public class DealerServiceImpl implements DealerService {
 			
 			if(player1Card.getValue() > player2Card.getValue()) {
 				player1.addToWinDeck(winPile);
-				turn.setPlayer1(player1);
 				
-				turn.setPlayer1Score(player1.getTotalAmountOfCards());
+				
+				 
+				System.out.println("\n******************* \nBout to set player 1 total Cards and iz::::");
+				int amountOfCards2 = player1.getAmountOfCards(); 
+				System.out.println(amountOfCards2);
+				System.out.println("******************* Bout to set player 1 total Cards and iz::::\n");
+				
+				turn.setPlayer1Score(amountOfCards2);
+				
+				turn.setPlayer1(player1);
 				
 				
 				
@@ -179,60 +182,23 @@ public class DealerServiceImpl implements DealerService {
 	}
 	
 	
+public Card takeTopCard(Player player) {
+	
+	Deck playerDeck = player.getDeck();
+	System.out.println("\n(())()()( hey this is playerDeck BEEEEFFFFOOOORRREEEE Take a Card!!!!!");
+	System.out.println(playerDeck);
+	System.out.println(player.getAmountOfCards());
+	
+	Card topCard  = playerDeck.takeACard();
+	
+	System.out.println(playerDeck);
 	
 	
+	System.out.println("\n(())()()( hey this is playerDeck after Take a Card!!!!!");
+	player.setDeck(playerDeck);
 	
-	
-	
-	
-	
-	
-	
-//	@Override
-//	public void compareCards(Player player1, Player player2, Deck incomingWinPile) {
-//				
-//		System.out.println("\n\nmaking failing call in compare cards");
-//		
-//		setHasGameBeenWon(player1, player2);
-//		
-//		// checking if game won up here because is less code for recursive call
-//		if (!hasGameBeenWon) {
-//						
-//			if(player1.getTotalAmountOfCards() < 2 || player2.getTotalAmountOfCards() < 2) {
-//				System.out.println("Game about to possibly end");
-//				System.out.println("Player1 cards before compare: " + player1.getDeck().getCards());
-//				System.out.println("Player2 cards before compare: " + player2.getDeck().getCards());
-//			}
-//			
-//			player1.turnWinDeckIntoPlayingDeck();
-//			player2.turnWinDeckIntoPlayingDeck();
-//
-//			Deck winPile = incomingWinPile == null ? new Deck() : incomingWinPile;
-//			
-//			Card player1Card = player1.getDeck().takeACard();
-//			Card player2Card = player2.getDeck().takeACard();
-//			
-//			System.out.println("COMPARING PLAYER1 CARD: " + player1Card + 
-//								" TO PLAYER2 CARD: " + player2Card);
-//			
-//			winPile.addACard(player1Card);
-//			winPile.addACard(player2Card);
-//			
-//			if(player1Card.getValue() > player2Card.getValue()) {
-//				player1.addToWinDeck(winPile);
-//				System.out.println("Player 1 just won, their game deck has: " + 
-//									player1.getWinDeck().getCards().size() +
-//									" and here is all their cards: " + player2.getTotalAmountOfCards());
-//			} else if(player2Card.getValue() > player1Card.getValue()) {
-//				player2.addToWinDeck(winPile);
-//				System.out.println("Player 2 just won, their game deck has: " +
-//									player2.getDeck().getCards().size() +
-//						" and here is all their cards: " + player2.getTotalAmountOfCards());
-//			} else {
-//				compareCards(player1, player2, winPile);	
-//			}			
-//		}		
-//	}
+	return topCard;
+}
 	
 	
 	@Override
@@ -304,10 +270,8 @@ public class DealerServiceImpl implements DealerService {
 	@Override
 	public boolean setHasGameBeenWon(Player player1, Player player2) {
 		
-		System.out.println("\n\n INSIDE SET HAS GAME BEEN WON\nThis is player1's deck:");
-		
-		System.out.println(player1.deckToString());
-		System.out.println(player1.getDeck());
+		System.out.println("inside setHasGameBeenWon and player1 amount of cards:");
+		System.out.println(player1);
 		
 		int player1Score = player1.getTotalAmountOfCards();
 		int player2Score = player2.getTotalAmountOfCards();

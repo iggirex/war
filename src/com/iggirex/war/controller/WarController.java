@@ -28,21 +28,13 @@ public class WarController {
 	@GetMapping("/")
 	public String getWar(Model theModel, @ModelAttribute Turn firstTurn) {
 		
-		System.out.println("\nNew shit comin thru");
-		System.out.println(firstTurn);
-		
 		Player player1 = new Player("player1");
 		Player player2 = new Player("player2");
 		Game game = new Game(player1, player2);
 		
 		Turn tempTurn = dealerService.makeFirstTurn(firstTurn);
 		firstTurn.setTurn(tempTurn);
-		
-//		theModel.addAttribute("game", game);
 		theModel.addAttribute("turn", firstTurn);
-		
-		System.out.println("\nAFTER SETTING FIRST TURN");
-		System.out.println(firstTurn);
 		
 		return "war";
 	}
@@ -50,14 +42,10 @@ public class WarController {
 	@GetMapping("/nextTurn")
 	public String getNextTurn(Model model, @ModelAttribute("turn") Turn turn) {
 		
-		
 		Turn newTurn = dealerService.runTurn(turn, turn.getPlayer1(), turn.getPlayer2()); //
 		
-		
 		turn.setTurn(newTurn);
-		
 		turn.setPlayer1Score(turn.getPlayer1Score());
-		
 		model.addAttribute("turn", turn);
 		
 		return "war";
@@ -77,7 +65,7 @@ public class WarController {
 //		// add stuff to the model
 //		theModel.addAttribute("turns", theList);
 //		
-//		return "turn-list";
+//		return "turn-list";kk
 //	}
 	
 	@ModelAttribute("turn")
