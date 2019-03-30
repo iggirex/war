@@ -40,9 +40,7 @@ public class Player {
 //		System.out.println("\n======== " + (winDeck != null && getAmountOfCards() > 0) + " =========\n");
 //		
 		if(winDeck != null && getAmountOfCards() == 0) {
-			
-//			System.out.println("Inside of winDeck != null and this is winDeck" + winDeck.getCards());
-			
+						
 			Collections.shuffle(winDeck.getCards());
 			
 //			System.out.println(" this is deck: " + deck);
@@ -57,6 +55,21 @@ public class Player {
 			return true;
 		}
 		
+	}
+	
+	public Card takeTopCard() {
+		
+		System.out.println("About to take top card from:");
+		System.out.println(name);
+		System.out.println("And they have number of cards left:");
+		System.out.println(deck.getCards().size());
+		
+		Card topCard  = deck.takeACard();
+		
+		System.out.println("Affter taking a card they got:::::");
+		System.out.println(deck.getCards().size());
+		
+		return topCard;
 	}
 
 	public String getName() {

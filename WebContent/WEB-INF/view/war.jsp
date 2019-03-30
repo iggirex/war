@@ -30,11 +30,11 @@
 		
 			<div class="player-decks-container">
 				<div id="player-two-win-deck" class="player-deck display-flex center-center">
-					<div class="card-value display-flex center-center">C9</div>
+					<div class="card-value display-flex center-center">${turn.player2GameDeck}</div>
 				</div>
 				
 				<div id="player-two-game-deck" class="player-deck display-flex center-center">
-					<div class="card-value display-flex center-center">D2</div>
+					<div class="card-value display-flex center-center">${turn.player2WinDeck}</div>
 				</div>				
 			</div>
 		
@@ -145,11 +145,11 @@
 		
 			<div class="player-decks-container">
 				<div id="player-one-game-deck" class="player-deck display-flex center-center">
-					<div class="card-value display-flex center-center">HK</div>
+					<div class="card-value display-flex center-center">${turn.player1GameDeck}</div>
 				</div>
 				
 				<div id="player-one-win-deck" class="player-deck display-flex center-center">
-					<div class="card-value display-flex center-center">A7</div>
+					<div class="card-value display-flex center-center">${turn.player1WinDeck}</div>
 				</div>
 			</div>
 		

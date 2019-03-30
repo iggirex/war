@@ -27,13 +27,8 @@ public class WarController {
 	
 	@GetMapping("/")
 	public String getWar(Model theModel, @ModelAttribute Turn firstTurn) {
-		
-		System.out.println("\nNew shit comin thru");
-		System.out.println(firstTurn);
-		
-		Player player1 = new Player("player1");
-		Player player2 = new Player("player2");
-		Game game = new Game(player1, player2);
+
+//		Game game = new Game(player1, player2);
 		
 		Turn tempTurn = dealerService.makeFirstTurn(firstTurn);
 		firstTurn.setTurn(tempTurn);
