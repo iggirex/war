@@ -58,17 +58,7 @@ public class Player {
 	}
 	
 	public Card takeTopCard() {
-		
-		System.out.println("About to take top card from:");
-		System.out.println(name);
-		System.out.println("And they have number of cards left:");
-		System.out.println(deck.getCards().size());
-		
 		Card topCard  = deck.takeACard();
-		
-		System.out.println("Affter taking a card they got:::::");
-		System.out.println(deck.getCards().size());
-		
 		return topCard;
 	}
 
@@ -89,15 +79,13 @@ public class Player {
 	}
 
 	public int getAmountOfCards() {
-		
-		System.out.println("FAILING HERE. this is player deck:");
-		System.out.println(deck);
-		
 		return deck.getCards().size();
 	}
 	
 	public int getAmountOfWinCards() {
-		if(winDeck.getCards().size() > 0) {
+		if (winDeck == null) {
+			return 0;
+		} else if(winDeck.getCards().size() > 0) {
 			return winDeck.getCards().size();
 		}
 		return 0;

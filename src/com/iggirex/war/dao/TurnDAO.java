@@ -20,6 +20,6 @@ public interface TurnDAO {
 	
 	public List<Turn> getTurns();
 	
-	public Turn saveTurn(Turn turn);
+	public void saveTurn(Turn turn);
 
 }

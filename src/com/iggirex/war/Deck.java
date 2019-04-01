@@ -28,5 +28,11 @@ public class Deck {
 	public String toString() {
 		return "Deck [cards=" + cards + "]";
 	}
+
+	// purely for testing
+	public void addTopCard(Card player1Card) {
+		cards.remove(cards.size() - 1);
+		cards.add(0, player1Card);
+	}
 	
 }

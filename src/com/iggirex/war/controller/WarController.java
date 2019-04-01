@@ -1,18 +1,12 @@
 package com.iggirex.war.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.iggirex.war.Player;
-import com.iggirex.war.entity.Game;
 import com.iggirex.war.entity.Turn;
 import com.iggirex.war.service.DealerService;
 
@@ -27,17 +21,10 @@ public class WarController {
 	
 	@GetMapping("/")
 	public String getWar(Model theModel, @ModelAttribute Turn firstTurn) {
-
-//		Game game = new Game(player1, player2);
 		
-		Turn tempTurn = dealerService.makeFirstTurn(firstTurn);
+		Turn tempTurn = dealerService.makeFirstTurn(firstTurn, null);
 		firstTurn.setTurn(tempTurn);
-		
-//		theModel.addAttribute("game", game);
 		theModel.addAttribute("turn", firstTurn);
-		
-		System.out.println("\nAFTER SETTING FIRST TURN");
-		System.out.println(firstTurn);
 		
 		return "war";
 	}
