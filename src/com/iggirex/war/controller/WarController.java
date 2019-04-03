@@ -32,14 +32,8 @@ public class WarController {
 	@GetMapping("/nextTurn")
 	public String getNextTurn(Model model, @ModelAttribute("turn") Turn turn) {
 		
-		
 		Turn newTurn = dealerService.runTurn(turn, turn.getPlayer1(), turn.getPlayer2()); //
-		
-		
 		turn.setTurn(newTurn);
-		
-		turn.setPlayer1Score(turn.getPlayer1Score());
-		
 		model.addAttribute("turn", turn);
 		
 		return "war";

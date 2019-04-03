@@ -63,14 +63,25 @@
 			
 				<div id="top-playing-card-container">
 					<div id="playing-card-one" class="playing-cards top-playing-cards display-flex center-center">
-						<div class="card-value display-flex center-center">HK</div>
+						<div class="card-value display-flex center-center">
+							${turn.player2Card}
+							<!-- play2 card -->
+						</div>
 					</div>
-					<div id="playing-card-two" class="playing-cards display-flex center-center">
-						<div class="card-value display-flex center-center">HK</div>
-					</div>
-					<div id="playing-card-three" class="playing-cards display-flex center-center">
-						<div class="card-value display-flex center-center">HK</div>
-					</div>
+					
+					<c:if test="${not empty turn.secondPlayer2Card}">
+						<!-- if playercard 2 is null don't show nothing -->
+						<div id="playing-card-two" class="playing-cards display-flex center-center">
+							<div class="card-value display-flex center-center">HK</div>
+						</div>
+					</c:if>
+
+					<c:if test="${not empty turn.thirdPlayer2Card}">
+						<!-- if playercard 3 is null don't show nothing -->
+						<div id="playing-card-three" class="playing-cards display-flex center-center">
+							<div class="card-value display-flex center-center">HK</div>
+						</div>
+					</c:if>
 				</div>
 			
 			</div>
@@ -80,14 +91,29 @@
 				<div id="bottom-playing-card-container">
 				
 					<div id="playing-card-four" class="playing-cards bottom-playing-cards display-flex center-center">
-						<div class="card-value display-flex center-center">HK</div>
+						<div class="card-value display-flex center-center">
+							${turn.player1Card}
+ 							<!-- play2 card -->
+						</div>
 					</div>
-					<div id="playing-card-five" class="playing-cards display-flex center-center">
-						<div class="card-value display-flex center-center">HK</div>
-					</div>
-					<div id="playing-card-six" class="playing-cards display-flex center-center">
-						<div class="card-value display-flex center-center">HK</div>
-					</div>
+					
+					
+					
+					<c:if test="${not empty turn.secondPlayer1Card}">
+						<!-- if playercard 2 is null don't show nothing -->
+						<div id="playing-card-five" class="playing-cards display-flex center-center">
+							<div class="card-value display-flex center-center">HK</div>
+						</div>
+					</c:if>
+					
+					<c:if test="${not empty turn.thirdPlayer1Card}">
+						<!-- if playercard 3 is null don't show nothing -->
+						<div id="playing-card-six" class="playing-cards display-flex center-center">
+							<div class="card-value display-flex center-center">HK</div>
+						</div>
+					</c:if>
+				
+				
 				
 				</div>
 			</div>

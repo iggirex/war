@@ -49,5 +49,9 @@ public class Card {
 	public String toString() {
 		return "Card [suit=" + suit + ", rank=" + rank + "]";
 	}
+	
+	public String getCardAsString() {
+		return rank + suit;
+	}
 
 }

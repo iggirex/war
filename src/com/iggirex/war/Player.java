@@ -12,7 +12,6 @@ public class Player {
 		this.name = name;
 	}
 	
-	
 	public void addToDeck(Card tempCard) {
 		
 		if(deck == null) {
@@ -82,6 +81,7 @@ public class Player {
 		return deck.getCards().size();
 	}
 	
+	// RF
 	public int getAmountOfWinCards() {
 		if (winDeck == null) {
 			return 0;
@@ -115,15 +115,5 @@ public class Player {
 	public String winDeckToString() {
 		return "name = " + name + "  >>>> Deck = " + winDeck;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

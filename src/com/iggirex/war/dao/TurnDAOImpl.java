@@ -32,7 +32,6 @@ public class TurnDAOImpl implements TurnDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	
 	@Override
 	public List<Turn> getTurns() {
 		
@@ -43,10 +42,8 @@ public class TurnDAOImpl implements TurnDAO {
 		Query<Turn> theQuery =
 				currentSession.createQuery("from Turn", Turn.class);
 		
-		
 		// execute query and get result list
 		List<Turn> turns = theQuery.getResultList();
-		
 		
 		// return the results
 		return turns;
@@ -61,7 +58,6 @@ public class TurnDAOImpl implements TurnDAO {
 		
 		currentSession.saveOrUpdate(turn);
 	}
-	
 	
 
 }

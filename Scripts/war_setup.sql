@@ -26,6 +26,12 @@ CREATE TABLE `turn_tbl` (
 	`player2GameDeck` int(11) DEFAULT NULL,
     `player2WinDeck` int(11) DEFAULT NULL,
     `game_id` int(11) DEFAULT NULL,
+    `player1Card` varchar(45) DEFAULT NULL,
+    `player2Card` varchar(45) DEFAULT NULL,
+    `secondPlayer1Card` varchar(45) DEFAULT NULL,
+    `secondPlayer2Card` varchar(45) DEFAULT NULL,
+    `thirdPlayer1Card` varchar(45) DEFAULT NULL,
+    `thirdPlayer2Card` varchar(45) DEFAULT NULL,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`game_id`) REFERENCES game_tbl (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;

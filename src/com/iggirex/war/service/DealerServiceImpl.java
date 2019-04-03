@@ -34,6 +34,8 @@ public class DealerServiceImpl implements DealerService {
 	@Transactional
 	public Turn makeFirstTurn(Turn firstTurn, TurnDAO mockTurnDAO) {
 		
+		// FIND better solution for mockTurnDAO
+		
 		Deck initialDeck = makeInitialDeck();
 		
 		firstTurn.setPlayer1(new Player("player1"));
@@ -62,10 +64,35 @@ public class DealerServiceImpl implements DealerService {
 		System.out.println("\nINSIDE RUN TRUNR");
 		System.out.println(turn);
 		
-		compareCards(turn, null);		
+		compareCards(turn, null);
 		turnDAO.saveTurn(turn);
 		
+		// clear playing cards from turn?
+//		clearPlayingCards(turn);
+		
+		System.out.println("RETURNING The turn from controller are cardys null??? or empty xstring??");
+		System.out.println(turn);
+		
 		return turn;
+	}
+	
+	public void clearPlayingCards(Turn turn) {
+		
+		turn.setPlayer1Card(null);
+		turn.setPlayer2Card(null);
+		
+		if( turn.getSecondPlayer1Card() != null) {
+			turn.setSecondPlayer1Card(null);
+		}
+		if( turn.getSecondPlayer2Card() != null) {
+			turn.setSecondPlayer2Card(null);
+		}
+		if( turn.getThirdPlayer1Card() != null) {
+			turn.setThirdPlayer1Card(null);
+		}
+		if( turn.getThirdPlayer2Card() != null) {
+			turn.setThirdPlayer2Card(null);
+		}
 	}
 	
 	@Override
@@ -80,7 +107,11 @@ public class DealerServiceImpl implements DealerService {
 	
 	@Override
 	public void compareCards(Turn turn, Deck incomingWinPile) {
-						
+		
+		if (incomingWinPile == null) {
+			clearPlayingCards(turn);
+		}
+		
 		setHasGameBeenWon(turn.getPlayer1(), turn.getPlayer2());
 		
 		// checking if game won up here because is less code for recursive call
@@ -92,6 +123,26 @@ public class DealerServiceImpl implements DealerService {
 
 			Card player1Card = player1.takeTopCard();
 			Card player2Card = player2.takeTopCard();
+			
+//			Card player1Card = new Card("a", "5");
+//			Card player2Card = new Card("a", "5");
+			
+			if(turn.getPlayer1Card() == null) {
+				turn.setPlayer1Card(player1Card.getCardAsString());
+			} else if (turn.getSecondPlayer1Card() == null) {
+				turn.setSecondPlayer1Card(player1Card.getCardAsString());
+			} else {
+				turn.setThirdPlayer1Card(player1Card.getCardAsString());
+			}
+			
+			if(turn.getPlayer2Card() == null) {
+				turn.setPlayer2Card(player2Card.getCardAsString());
+			} else if (turn.getSecondPlayer2Card() == null) {
+				turn.setSecondPlayer2Card(player2Card.getCardAsString());
+			} else {
+				turn.setThirdPlayer2Card(player2Card.getCardAsString());
+			}
+			
 
 			System.out.println("\n=====================================");
 			System.out.println("COMPARING PLAYER1 CARD: " + player1Card + 

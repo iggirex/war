@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.iggirex.war.Card;
 import com.iggirex.war.Player;
 
 @Entity
@@ -42,6 +43,13 @@ public class Turn {
 	
 	@Transient
 	private Player player2;
+
+	private String player1Card;
+	private String player2Card;
+	private String secondPlayer1Card;
+	private String secondPlayer2Card;
+	private String thirdPlayer1Card;
+	private String thirdPlayer2Card;
 	
 	public Turn() {
 		
@@ -143,8 +151,6 @@ public class Turn {
 		this.player2WinDeck = player2WinDeck;
 	}
 	
-	
-
 	public Player getPlayer1() {
 		return player1;
 	}
@@ -160,13 +166,67 @@ public class Turn {
 	public void setPlayer2(Player player2) {
 		this.player2 = player2;
 	}
+	
+
+
+	public String getPlayer1Card() {
+		return player1Card;
+	}
+
+	public void setPlayer1Card(String player1Card) {
+		this.player1Card = player1Card;
+	}
+
+	public String getPlayer2Card() {
+		return player2Card;
+	}
+
+	public void setPlayer2Card(String player2Card) {
+		this.player2Card = player2Card;
+	}
+
+	public String getSecondPlayer1Card() {
+		return secondPlayer1Card;
+	}
+
+	public void setSecondPlayer1Card(String secondPlayer1Card) {
+		this.secondPlayer1Card = secondPlayer1Card;
+	}
+
+	public String getSecondPlayer2Card() {
+		return secondPlayer2Card;
+	}
+
+	public void setSecondPlayer2Card(String secondPlayer2Card) {
+		this.secondPlayer2Card = secondPlayer2Card;
+	}
+
+	public String getThirdPlayer1Card() {
+		return thirdPlayer1Card;
+	}
+
+	public void setThirdPlayer1Card(String thirdPlayer1Card) {
+		this.thirdPlayer1Card = thirdPlayer1Card;
+	}
+
+	public String getThirdPlayer2Card() {
+		return thirdPlayer2Card;
+	}
+
+	public void setThirdPlayer2Card(String thirdPlayer2Card) {
+		this.thirdPlayer2Card = thirdPlayer2Card;
+	}
 
 	@Override
 	public String toString() {
 		return "Turn [id=" + id + ", player1Score=" + player1Score + ", player1GameDeck=" + player1GameDeck
 				+ ", player1WinDeck=" + player1WinDeck + ", player2Score=" + player2Score + ", player2GameDeck="
-				+ player2GameDeck + ", player2WinDeck=" + player2WinDeck + "]";
+				+ player2GameDeck + ", player2WinDeck=" + player2WinDeck + ", player1=" + player1 + ", player2="
+				+ player2 + ", player1Card=" + player1Card + ", player2Card=" + player2Card + ", secondPlayer1Card="
+				+ secondPlayer1Card + ", secondPlayer2Card=" + secondPlayer2Card + ", thirdPlayer1Card="
+				+ thirdPlayer1Card + ", thirdPlayer2Card=" + thirdPlayer2Card + "]";
 	}
+	
 	
 	 
 

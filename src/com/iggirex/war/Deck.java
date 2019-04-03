@@ -29,6 +29,8 @@ public class Deck {
 		return "Deck [cards=" + cards + "]";
 	}
 
+	
+	
 	// purely for testing
 	public void addTopCard(Card player1Card) {
 		cards.remove(cards.size() - 1);
