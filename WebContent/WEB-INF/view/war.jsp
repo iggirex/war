@@ -72,14 +72,14 @@
 					<c:if test="${not empty turn.secondPlayer2Card}">
 						<!-- if playercard 2 is null don't show nothing -->
 						<div id="playing-card-two" class="playing-cards display-flex center-center">
-							<div class="card-value display-flex center-center">HK</div>
+							<div class="card-value display-flex center-center">${turn.secondPlayer2Card}</div>
 						</div>
 					</c:if>
 
 					<c:if test="${not empty turn.thirdPlayer2Card}">
 						<!-- if playercard 3 is null don't show nothing -->
 						<div id="playing-card-three" class="playing-cards display-flex center-center">
-							<div class="card-value display-flex center-center">HK</div>
+							<div class="card-value display-flex center-center">${turn.thirdPlayer2Card}</div>
 						</div>
 					</c:if>
 				</div>
@@ -102,14 +102,14 @@
 					<c:if test="${not empty turn.secondPlayer1Card}">
 						<!-- if playercard 2 is null don't show nothing -->
 						<div id="playing-card-five" class="playing-cards display-flex center-center">
-							<div class="card-value display-flex center-center">HK</div>
+							<div class="card-value display-flex center-center">${turn.secondPlayer1Card}</div>
 						</div>
 					</c:if>
 					
 					<c:if test="${not empty turn.thirdPlayer1Card}">
 						<!-- if playercard 3 is null don't show nothing -->
 						<div id="playing-card-six" class="playing-cards display-flex center-center">
-							<div class="card-value display-flex center-center">HK</div>
+							<div class="card-value display-flex center-center">${turn.thirdPlayer1Card}</div>
 						</div>
 					</c:if>
 				
