@@ -2,6 +2,7 @@ package com.iggirex.war.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,7 +21,9 @@ public class WarController {
 	
 	
 	@GetMapping("/")
-	public String getWar(Model theModel, @ModelAttribute Turn firstTurn) {
+	public String getWar(Model theModel) {
+		
+		Turn firstTurn = new Turn();
 		
 		Turn tempTurn = dealerService.makeFirstTurn(firstTurn, null);
 		firstTurn.setTurn(tempTurn);
@@ -33,6 +36,20 @@ public class WarController {
 	public String getNextTurn(Model model, @ModelAttribute("turn") Turn turn) {
 		
 		Turn newTurn = dealerService.runTurn(turn, turn.getPlayer1(), turn.getPlayer2()); //
+		
+		System.out.println("IN controller and this is new turn being made:");
+		System.out.println(newTurn);
+		turn.setTurn(newTurn);
+		model.addAttribute("turn", turn);
+		
+		return "war";
+	}
+	
+	@Transactional
+	@GetMapping("/newTurn")
+	public String getNewTurn(Model model, @ModelAttribute("turn") Turn turn) {
+		
+		Turn newTurn = new Turn();
 		turn.setTurn(newTurn);
 		model.addAttribute("turn", turn);
 		

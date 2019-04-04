@@ -60,6 +60,7 @@ public class DealerServiceImpl implements DealerService {
 	}
 	
 	@Override
+	@Transactional
 	public Turn runTurn(Turn turn, Player player1, Player player2) {
 		System.out.println("\nINSIDE RUN TRUNR");
 		System.out.println(turn);
@@ -67,8 +68,12 @@ public class DealerServiceImpl implements DealerService {
 		compareCards(turn, null);
 		turnDAO.saveTurn(turn);
 		
-		// clear playing cards from turn?
-//		clearPlayingCards(turn);
+		
+		Turn diffTurn = new Turn();
+		System.out.println("this is diffTurn");
+		System.out.println(diffTurn);
+		
+		turnDAO.saveTurn(diffTurn);
 		
 		System.out.println("RETURNING The turn from controller are cardys null??? or empty xstring??");
 		System.out.println(turn);
