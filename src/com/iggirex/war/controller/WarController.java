@@ -37,10 +37,17 @@ public class WarController {
 		
 		Turn newTurn = dealerService.runTurn(turn, turn.getPlayer1(), turn.getPlayer2()); //
 		
+		System.out.println("==============================================");
 		System.out.println("IN controller and this is new turn being made:");
 		System.out.println(newTurn);
+		System.out.println("\n");
+
 		turn.setTurn(newTurn);
+		
 		model.addAttribute("turn", turn);
+		
+		System.out.println("==============================================");
+		System.out.println("\n\n");
 		
 		return "war";
 	}

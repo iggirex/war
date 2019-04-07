@@ -62,23 +62,32 @@ public class DealerServiceImpl implements DealerService {
 	@Override
 	@Transactional
 	public Turn runTurn(Turn turn, Player player1, Player player2) {
-		System.out.println("\nINSIDE RUN TRUNR");
+		System.out.println("\nINSIDE RUN TRUNR this is turn handed in");
+		System.out.println(turn);
+		System.out.println("\n");
+		
+		Turn newForRealTurn = new Turn();
+		
+		newForRealTurn.setTurn(turn);
+		
+//		compareCards(turn, null);
+//		turnDAO.saveTurn(turn);
+		
+		
+		compareCards(newForRealTurn, null);
+		turnDAO.saveTurn(newForRealTurn);
+		
+		
+//		Turn diffTurn = new Turn();
+//		System.out.println("this is diffTurn");
+//		System.out.println(diffTurn);
+//		
+//		turnDAO.saveTurn(diffTurn);
+		
+		System.out.println("Inside run Turnr and this is turn being handed back:");
 		System.out.println(turn);
 		
-		compareCards(turn, null);
-		turnDAO.saveTurn(turn);
-		
-		
-		Turn diffTurn = new Turn();
-		System.out.println("this is diffTurn");
-		System.out.println(diffTurn);
-		
-		turnDAO.saveTurn(diffTurn);
-		
-		System.out.println("RETURNING The turn from controller are cardys null??? or empty xstring??");
-		System.out.println(turn);
-		
-		return turn;
+		return newForRealTurn;
 	}
 	
 	public void clearPlayingCards(Turn turn) {
@@ -112,6 +121,9 @@ public class DealerServiceImpl implements DealerService {
 	
 	@Override
 	public void compareCards(Turn turn, Deck incomingWinPile) {
+		
+		System.out.println("inside COMPARE cards, this is turn handed in:");
+		System.out.println(turn);
 		
 		if (incomingWinPile == null) {
 			clearPlayingCards(turn);
@@ -195,6 +207,9 @@ public class DealerServiceImpl implements DealerService {
 			turn.setPlayer2WinDeck(player2.getAmountOfWinCards());
 			turn.setPlayer2(player2);
 		}		
+		
+		System.out.println("At the end of compare cards turn is:");
+		System.out.println(turn);
 	}
 	
 
