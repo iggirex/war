@@ -169,9 +169,7 @@ public class DealerServiceImpl implements DealerService {
 
 			winPile.addACard(player1Card);
 			winPile.addACard(player2Card);
-			
-			System.out.println(turn);
-			
+						
 			if(player1Card.getValue() > player2Card.getValue()) {
 				player1.addToWinDeck(winPile);
 				
@@ -282,7 +280,7 @@ public class DealerServiceImpl implements DealerService {
 	@Override
 	public boolean setHasGameBeenWon(Player player1, Player player2) {
 		
-		System.out.println("\nINSIDE SET HAS GAME BEEN WON:\n");
+//		System.out.println("\nINSIDE SET HAS GAME BEEN WON:\n");
 		
 //		System.out.println(player1.deckToString());
 //		System.out.println(player1.getDeck());

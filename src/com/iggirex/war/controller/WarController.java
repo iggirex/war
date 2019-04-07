@@ -35,16 +35,18 @@ public class WarController {
 	@GetMapping("/nextTurn")
 	public String getNextTurn(Model model, @ModelAttribute("turn") Turn turn) {
 		
+		System.out.println("\n==============================================");
+		System.out.println("IN controller and this is turn handed in:");
+		System.out.println(turn);
+		
 		Turn newTurn = dealerService.runTurn(turn, turn.getPlayer1(), turn.getPlayer2()); //
 		
-		System.out.println("==============================================");
-		System.out.println("IN controller and this is new turn being made:");
-		System.out.println(newTurn);
 		System.out.println("\n");
+		System.out.println("IN controller and this is new turn JUST GOT MADEEE :");
+		System.out.println(newTurn);
 
-		turn.setTurn(newTurn);
-		
-		model.addAttribute("turn", turn);
+//		turn.setTurn(newTurn);
+		model.addAttribute("turn", newTurn);
 		
 		System.out.println("==============================================");
 		System.out.println("\n\n");
