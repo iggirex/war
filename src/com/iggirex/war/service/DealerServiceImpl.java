@@ -122,6 +122,13 @@ public class DealerServiceImpl implements DealerService {
 	@Override
 	public void compareCards(Turn turn, Deck incomingWinPile) {
 		
+		// turn win deck to game deck
+		Player player1 = turn.getPlayer1();
+		Player player2 = turn.getPlayer2();
+		
+		player1.turnWinDeckIntoPlayingDeck();
+		player2.turnWinDeckIntoPlayingDeck();
+		
 		System.out.println("inside COMPARE cards, this is turn handed in:");
 		System.out.println(turn);
 		
@@ -134,8 +141,8 @@ public class DealerServiceImpl implements DealerService {
 		// checking if game won up here because is less code for recursive call
 		if (!hasGameBeenWon) {						
 			
-			Player player1 = turn.getPlayer1();
-			Player player2 = turn.getPlayer2();			
+//			Player player1 = turn.getPlayer1();
+//			Player player2 = turn.getPlayer2();			
 			Deck winPile = incomingWinPile == null ? new Deck() : incomingWinPile;
 
 			Card player1Card = player1.takeTopCard();
