@@ -2,6 +2,7 @@ package com.iggirex.war.dao;
 
 import java.util.List;
 
+import com.iggirex.war.entity.Game;
 import com.iggirex.war.entity.Turn;
 
 // Interface NOT strictly necessary but basic good practice
@@ -21,5 +22,7 @@ public interface TurnDAO {
 	public List<Turn> getTurns();
 	
 	public void saveTurn(Turn turn);
+	
+	public void saveGame(Game game);
 
 }

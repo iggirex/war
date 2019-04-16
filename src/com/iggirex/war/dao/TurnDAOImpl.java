@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.iggirex.war.entity.Game;
 import com.iggirex.war.entity.Turn;
 
 // @Repository always applied to DAO implementations
@@ -58,6 +59,12 @@ public class TurnDAOImpl implements TurnDAO {
 		
 		currentSession.saveOrUpdate(turn);
 	}
-	
 
+	@Override
+	public void saveGame(Game game) {
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		currentSession.saveOrUpdate(game);
+		
+	}
 }

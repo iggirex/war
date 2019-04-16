@@ -93,8 +93,11 @@ body {
 }
 
 #announcements {
+	display: flex;
 	background-color: red;
  	height: 25%;
+ 	justify-content: center;
+	align-items: center;
 }
 
 #gameStatus {
@@ -103,6 +106,7 @@ body {
 }
 
 #announcementsContainer {
+	
 }
 
 .player-label {
@@ -139,6 +143,7 @@ body {
 	height: 5vh;
 	width: 5vw;
 	border: 3px solid black;
+	font-size: 25px;
 }
 
 .center-center {
@@ -184,7 +189,7 @@ body {
 
 .playing-cards {
 	height: 19vh;
-    min-width: 80px;
+    min-width: 90px;
  	border: 5px solid black;
 	margin-right: -20px;
 }

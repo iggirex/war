@@ -32,7 +32,11 @@ public class DealerServiceImpl implements DealerService {
 	//	USE @Transactional here???? to store game obj??
 	@Override
 	@Transactional
-	public Turn makeFirstTurn(Turn firstTurn, TurnDAO mockTurnDAO) {
+	public Turn makeFirstTurn(Turn firstTurn, TurnDAO mockTurnDAO, Game game) {
+		
+		
+		System.out.println("INSIDE makeFirstTurn and this is GAM<EMMMMM>><<<<<<");
+		System.out.println(game);
 		
 		// FIND better solution for mockTurnDAO
 		
@@ -54,6 +58,7 @@ public class DealerServiceImpl implements DealerService {
 		
 		if (turnDAO != null) {
 			turnDAO.saveTurn(firstTurn);
+			turnDAO.saveGame(game);
 		}
 		
 		return firstTurn;
@@ -109,15 +114,15 @@ public class DealerServiceImpl implements DealerService {
 		}
 	}
 	
-	@Override
-	public Game initializeGame() {
-		
-		Player player1 = new Player("player1");
-		Player player2 = new Player("player2");
-		Game newGame = new Game(player1, player2);
-		
-		return newGame;
-	}
+//	@Override
+//	public Game initializeGame() {
+//		
+//		Player player1 = new Player("player1");
+//		Player player2 = new Player("player2");
+//		Game newGame = new Game(player1, player2);
+//		
+//		return newGame;
+//	}
 	
 	@Override
 	public void compareCards(Turn turn, Deck incomingWinPile) {
@@ -140,16 +145,11 @@ public class DealerServiceImpl implements DealerService {
 		
 		// checking if game won up here because is less code for recursive call
 		if (!hasGameBeenWon) {						
-			
-//			Player player1 = turn.getPlayer1();
-//			Player player2 = turn.getPlayer2();			
+		
 			Deck winPile = incomingWinPile == null ? new Deck() : incomingWinPile;
 
 			Card player1Card = player1.takeTopCard();
 			Card player2Card = player2.takeTopCard();
-			
-//			Card player1Card = new Card("a", "5");
-//			Card player2Card = new Card("a", "5");
 			
 			if(turn.getPlayer1Card() == null) {
 				turn.setPlayer1Card(player1Card.getCardAsString());
@@ -166,13 +166,11 @@ public class DealerServiceImpl implements DealerService {
 			} else {
 				turn.setThirdPlayer2Card(player2Card.getCardAsString());
 			}
-			
 
 			System.out.println("\n=====================================");
 			System.out.println("COMPARING PLAYER1 CARD: " + player1Card + 
 								" TO PLAYER2 CARD: " + player2Card);
 			System.out.println("=====================================\n");
-			
 
 			winPile.addACard(player1Card);
 			winPile.addACard(player2Card);
@@ -304,5 +302,4 @@ public class DealerServiceImpl implements DealerService {
 		}
 		return hasGameBeenWon;
 	}
-
 }

@@ -15,7 +15,7 @@ public interface DealerService {
 	public List<Turn> getTurns();	
 	
 	
-	public Game initializeGame();
+//	public Game initializeGame();
 	
 	void compareCards(Turn turn, Deck incomingWinPile);
 
@@ -29,7 +29,6 @@ public interface DealerService {
 
 	Turn runTurn(Turn lastTurn, Player player1, Player player2);
 
-
-	Turn makeFirstTurn(Turn firstTurn, TurnDAO mockTurnDAO);
+	Turn makeFirstTurn(Turn firstTurn, TurnDAO mockTurnDAO, Game game);
 	
 }

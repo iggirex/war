@@ -12,6 +12,7 @@ import com.iggirex.war.Card;
 import com.iggirex.war.Deck;
 import com.iggirex.war.Player;
 import com.iggirex.war.dao.TurnDAO;
+import com.iggirex.war.entity.Game;
 import com.iggirex.war.entity.Turn;
 
 import static org.mockito.Mockito.*;
@@ -32,9 +33,10 @@ class DealerServiceImplTest {
 		doNothing().when(turnDAO).saveTurn(turn);
 		
 		turn = new Turn();
+		Game game = new Game();
 		dealerService = new DealerServiceImpl();
 		
-		Turn tempTurn = dealerService.makeFirstTurn(turn, turnDAO);
+		Turn tempTurn = dealerService.makeFirstTurn(turn, turnDAO, game);
 		turn.setTurn(tempTurn);
 	}
 	

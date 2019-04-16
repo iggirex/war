@@ -43,6 +43,7 @@
 		<div id="announcementsContainer" class="innerContainer flex-column-evenly">
 		
 			<div id="announcements">
+				<h2>GAME {game.id}   TURN ${turn.id}</h2>
 			</div>
 		
 			<div id="gameStatus">

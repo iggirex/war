@@ -12,7 +12,7 @@ CREATE TABLE `game_tbl` (
     `player1` varchar(45) DEFAULT 'player1',
     `player2` varchar(45) default 'player2',
     PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
 
 SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `turn_tbl`;
@@ -34,4 +34,4 @@ CREATE TABLE `turn_tbl` (
     `thirdPlayer2Card` varchar(45) DEFAULT NULL,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`game_id`) REFERENCES game_tbl (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
