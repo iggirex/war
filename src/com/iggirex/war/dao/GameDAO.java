@@ -17,10 +17,8 @@ import com.iggirex.war.entity.Turn;
 // Now you declare a pest array (pest is interface) and your classes that implement pest
 // can all go in the same array though they are very different
 
-public interface TurnDAO {
+public interface GameDAO {
 	
-	public List<Turn> getTurns();
-	
-	public void saveTurn(Turn turn);
-	
+	public void saveGame(Game game);
+
 }

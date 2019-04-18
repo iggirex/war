@@ -1,10 +1,14 @@
 package com.iggirex.war.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -37,6 +41,11 @@ public class Turn {
 	
 	@Column(name="player2WinDeck")
 	private int player2WinDeck;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name="game_tbl_id")
+//	@Column(name="game_id")
+	private Game game;
 	
 	@Transient
 	private Player player1;
@@ -191,9 +200,17 @@ public class Turn {
 		this.thirdPlayer2Card = thirdPlayer2Card;
 	}
 
+	public Game getGameId() {
+		return game;
+	}
+
+	public void setGameId(Game game) {
+		this.game = game;
+	}
+
 	@Override
 	public String toString() {
-		return "Turn [id=" + id + ", player1Score=" + player1Score + ", player1GameDeck=" + player1GameDeck
+		return "Turn [id=" + id + ", gameId=, player1Score=" + player1Score + ", player1GameDeck=" + player1GameDeck
 				+ ", player1WinDeck=" + player1WinDeck + ", player2Score=" + player2Score + ", player2GameDeck="
 				+ player2GameDeck + ", player2WinDeck=" + player2WinDeck + ", player1=" + player1 + ", player2="
 				+ player2 + ", player1Card=" + player1Card + ", player2Card=" + player2Card + ", secondPlayer1Card="

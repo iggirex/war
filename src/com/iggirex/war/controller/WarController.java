@@ -13,7 +13,7 @@ import com.iggirex.war.entity.Turn;
 import com.iggirex.war.service.DealerService;
 
 @Controller
-@SessionAttributes("turn")
+@SessionAttributes({"turn", "game"})
 public class WarController {
 	
 	// Inject our dealer service with @Autowired
@@ -44,8 +44,9 @@ public class WarController {
 //		System.out.println("IN controller and this is turn handed in:");
 //		System.out.println(turn);
 		
-		Turn newTurn = dealerService.runTurn(turn, turn.getPlayer1(), turn.getPlayer2());
+		Turn newTurn = dealerService.runTurn(turn, turn.getPlayer1(), turn.getPlayer2(), game);
 		
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>> inside /nextTurn <<<<<<<<<<<<<<<<<<<<");
 		System.out.println("This is game being made:");
 		System.out.println(game.getId());
 		
@@ -54,6 +55,7 @@ public class WarController {
 //		System.out.println(newTurn);
 
 		model.addAttribute("turn", newTurn);
+		model.addAttribute("game", game);
 		
 		System.out.println("==============================================");
 		System.out.println("\n\n");

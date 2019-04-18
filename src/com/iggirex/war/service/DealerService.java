@@ -27,7 +27,7 @@ public interface DealerService {
 
 //	Turn makeFirstTurn(Turn firstTurn);
 
-	Turn runTurn(Turn lastTurn, Player player1, Player player2);
+	Turn runTurn(Turn lastTurn, Player player1, Player player2, Game game);
 
 	Turn makeFirstTurn(Turn firstTurn, TurnDAO mockTurnDAO, Game game);
 	

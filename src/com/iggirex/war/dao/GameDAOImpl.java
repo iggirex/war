@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,10 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.iggirex.war.entity.Game;
 import com.iggirex.war.entity.Turn;
 
-// @Repository always applied to DAO implementations
-// Same as @Component except it translates DB layer errors
+//@Repository always applied to DAO implementations
+//Same as @Component except it translates DB layer errors
 @Repository
-public class TurnDAOImpl implements TurnDAO {
+public class GameDAOImpl implements GameDAO{
 	
 	// DAO's
 	//
@@ -34,30 +33,12 @@ public class TurnDAOImpl implements TurnDAO {
 	private SessionFactory sessionFactory;
 	
 	@Override
-	public List<Turn> getTurns() {
-		
-		// get the current hibernate session
-		Session currentSession = sessionFactory.getCurrentSession();
-		
-		// create the query
-		Query<Turn> theQuery =
-				currentSession.createQuery("from Turn", Turn.class);
-		
-		// execute query and get result list
-		List<Turn> turns = theQuery.getResultList();
-		
-		// return the results
-		return turns;
-	}
-	
-	@Override
 	@Transactional
-	public void saveTurn(Turn turn) {
-		
-		// get the current hibernate session
+	public void saveGame(Game game) {
 		Session currentSession = sessionFactory.getCurrentSession();
 		
-		currentSession.saveOrUpdate(turn);
+		currentSession.saveOrUpdate(game);
+		
 	}
 
 }

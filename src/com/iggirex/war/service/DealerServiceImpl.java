@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.iggirex.war.Card;
 import com.iggirex.war.Deck;
 import com.iggirex.war.Player;
+import com.iggirex.war.dao.GameDAO;
 import com.iggirex.war.dao.TurnDAO;
 import com.iggirex.war.entity.Game;
 import com.iggirex.war.entity.Turn;
@@ -21,6 +22,9 @@ public class DealerServiceImpl implements DealerService {
 	// need to inject customer DAO
 	@Autowired
 	private TurnDAO turnDAO;
+	
+	@Autowired
+	private GameDAO gameDAO;
 	
 	private boolean hasGameBeenWon;
 	private Player gameWinner;
@@ -33,7 +37,6 @@ public class DealerServiceImpl implements DealerService {
 	@Override
 	@Transactional
 	public Turn makeFirstTurn(Turn firstTurn, TurnDAO mockTurnDAO, Game game) {
-		
 		
 		System.out.println("INSIDE makeFirstTurn and this is GAM<EMMMMM>><<<<<<");
 		System.out.println(game);
@@ -57,8 +60,20 @@ public class DealerServiceImpl implements DealerService {
 		firstTurn.setPlayer2(firstTurn.getPlayer2());
 		
 		if (turnDAO != null) {
+			firstTurn.setGameId(game);
+			
+			System.out.println("$%^@%$@@#$%$#$#%@$# This is game.getId()");
+			System.out.println(game.getId());
+			
+			System.out.println("$%^@%$@@#$%$#$#%@$# This is firsTurn");
+			System.out.println(firstTurn);
+			
 			turnDAO.saveTurn(firstTurn);
-			turnDAO.saveGame(game);
+//			turnDAO.saveGame(game);
+			
+			gameDAO.saveGame(game);
+		
+		
 		}
 		
 		return firstTurn;
@@ -66,14 +81,16 @@ public class DealerServiceImpl implements DealerService {
 	
 	@Override
 	@Transactional
-	public Turn runTurn(Turn turn, Player player1, Player player2) {
+	public Turn runTurn(Turn turn, Player player1, Player player2, Game game) {
 		System.out.println("\nINSIDE RUN TRUNR this is turn handed in");
-		System.out.println(turn);
+		System.out.println(game);
 		System.out.println("\n");
 		
 		Turn newForRealTurn = new Turn();
 		
 		newForRealTurn.setTurn(turn);
+		
+		newForRealTurn.setGameId(game);
 		
 //		compareCards(turn, null);
 //		turnDAO.saveTurn(turn);
