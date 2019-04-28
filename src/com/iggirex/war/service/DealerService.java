@@ -13,21 +13,18 @@ import com.iggirex.war.entity.Turn;
 public interface DealerService {
 	
 	public List<Turn> getTurns();	
-	
-	
-//	public Game initializeGame();
-	
-	void compareCards(Turn turn, Deck incomingWinPile);
-
+		
 	Deck makeInitialDeck();
 
 	void deal(ArrayList<Card> theDeck, Player player1, Player player2);
 
-	boolean setHasGameBeenWon(Player player1, Player player2);
-
-//	Turn makeFirstTurn(Turn firstTurn);
-
 	Turn runTurn(Turn lastTurn, Player player1, Player player2, Game game);
+
+	boolean setHasGameBeenWon(Player player1, Player player2, Game game);
+
+	void compareCards(Turn turn, Deck incomingWinPile, Game game);
+
+	public Turn returnAllTurns(Turn turn, Game game);
 
 	Turn makeFirstTurn(Turn firstTurn, TurnDAO mockTurnDAO, Game game);
 	

@@ -43,7 +43,7 @@
 		<div id="announcementsContainer" class="innerContainer flex-column-evenly">
 		
 			<div id="announcements">
-				<h2>GAME {game.id}   TURN ${turn.id}</h2>
+				<h2>GAME ${game.id}   TURN ${turn.turnNumber}</h2>
 			</div>
 		
 			<div id="gameStatus">
@@ -55,8 +55,7 @@
 	
 	<div id="middleContainer" class="display-flex transparent row-container vh30">
 	
-		<div id="leftGameContainer" class="middle-inner-container middle-inner-container-left transparent">
-		</div>
+		<div id="leftGameContainer" class="middle-inner-container middle-inner-container-left transparent"></div>
 		
 		<div id="centerGameContainer" class="middle-inner-container transparent flex-column-evenly">
 			
@@ -114,44 +113,33 @@
 						</div>
 					</c:if>
 				
-				
-				
 				</div>
 			</div>
 		</div>
 		
-		<div id="rightGameContainer" class="middle-inner-container middle-inner-container-right transparent">
-		</div>
+		<div id="rightGameContainer" class="middle-inner-container middle-inner-container-right transparent"></div>
 	</div>
 	
 	<div id="bottomContainer" class="display-flex transparent row-container vh30">
-	
 		<div id="gameControls" class="innerContainer flex-column-evenly">
 			
 			<div id="draw-button" class="display-flex center-center fs30">
-			
 				<form:form method="GET" modelAttribute="turn" action="nextTurn">
-								
-				
 					<input type="submit" value="DRAW" />
-					
 				</form:form>
 			</div>
 			
 			<div id="forfeit-button" class="display-flex center-center fs30">
-				<!-- FOREFEIT -->
-				<p>${turn.player1Score}</p>
+				<form:form method="GET" modelAttribute="turn" action="newGame">
+					<input type="submit" value="New Game" />
+				</form:form>
 			</div>
 			
 			<div id="back-button" class="display-flex center-center fs30">
-				
-				
-				<form:form method="GET" modelAttribute="turn" action="getTurns">
-				
-				
-					<input type="submit" value="See Turns" />
-					
+				<form:form method="GET" modelAttribute="turn" action="allTurns">
+					<input type="submit" value="All Turns" />
 				</form:form>
+				
 			</div>
 		</div>
 		

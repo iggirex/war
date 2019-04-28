@@ -20,6 +20,7 @@ import static org.mockito.Mockito.*;
 class DealerServiceImplTest {
 	
 	static Turn turn;
+	static Game game;
 	DealerService dealerService;
 	
 	@Mock
@@ -55,7 +56,7 @@ class DealerServiceImplTest {
 		player1.getDeck().addTopCard(player1Card);
 		player2.getDeck().addTopCard(player2Card);
 		
-		dealerService.compareCards(turn, null);
+		dealerService.compareCards(turn, null, game);
 		
 		assertEquals(25, player1.getAmountOfCards());
 		assertEquals(27, player1.getTotalAmountOfCards());
@@ -78,7 +79,7 @@ class DealerServiceImplTest {
 		player1.getDeck().addTopCard(player1Card);
 		player2.getDeck().addTopCard(player2Card);
 		
-		dealerService.compareCards(turn, null);
+		dealerService.compareCards(turn, null, game);
 		
 		assertEquals(25, player1.getAmountOfCards());
 		assertEquals(25, player1.getTotalAmountOfCards());
@@ -109,7 +110,7 @@ class DealerServiceImplTest {
 		System.out.println(player1.getDeck());
 		System.out.println(player2.getDeck());
 		
-		dealerService.compareCards(turn, null);
+		dealerService.compareCards(turn, null, game);
 		
 		assertEquals(24, player1.getAmountOfCards());
 		assertEquals(24, player1.getTotalAmountOfCards());

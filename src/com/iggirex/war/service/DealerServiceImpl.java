@@ -34,120 +34,56 @@ public class DealerServiceImpl implements DealerService {
 	// @Transactional saves you from having to .begin(), .commit(), .close()
 	
 	//	USE @Transactional here???? to store game obj??
-	@Override
-	@Transactional
-	public Turn makeFirstTurn(Turn firstTurn, TurnDAO mockTurnDAO, Game game) {
-		
-		System.out.println("INSIDE makeFirstTurn and this is GAM<EMMMMM>><<<<<<");
-		System.out.println(game);
-		
-		// FIND better solution for mockTurnDAO
-		
-		Deck initialDeck = makeInitialDeck();
-		
-		firstTurn.setPlayer1(new Player("player1"));
-		firstTurn.setPlayer2(new Player("player2"));
-		deal(initialDeck.getCards(), firstTurn.getPlayer1(), firstTurn.getPlayer2());
-
-		firstTurn.setPlayer1GameDeck(firstTurn.getPlayer1().getDeck().getCards().size());
-		firstTurn.setPlayer2GameDeck(firstTurn.getPlayer2().getDeck().getCards().size());
-		firstTurn.setPlayer1WinDeck(0);
-		firstTurn.setPlayer2WinDeck(0);
-		firstTurn.setPlayer1Score(firstTurn.getPlayer1().getTotalAmountOfCards());
-		firstTurn.setPlayer2Score(firstTurn.getPlayer2().getTotalAmountOfCards());
-		
-		firstTurn.setPlayer1(firstTurn.getPlayer1());
-		firstTurn.setPlayer2(firstTurn.getPlayer2());
-		
-		if (turnDAO != null) {
-			firstTurn.setGameId(game);
-			
-			System.out.println("$%^@%$@@#$%$#$#%@$# This is game.getId()");
-			System.out.println(game.getId());
-			
-			System.out.println("$%^@%$@@#$%$#$#%@$# This is firsTurn");
-			System.out.println(firstTurn);
-			
-			turnDAO.saveTurn(firstTurn);
-//			turnDAO.saveGame(game);
-			
-			gameDAO.saveGame(game);
-		
-		
-		}
-		
-		return firstTurn;
-	}
+	
 	
 	@Override
 	@Transactional
 	public Turn runTurn(Turn turn, Player player1, Player player2, Game game) {
 		System.out.println("\nINSIDE RUN TRUNR this is turn handed in");
 		System.out.println(game);
-		System.out.println("\n");
-		
+				
 		Turn newForRealTurn = new Turn();
-		
 		newForRealTurn.setTurn(turn);
+		newForRealTurn.setGameId(turn.getGameId());
 		
-		newForRealTurn.setGameId(game);
+		compareCards(newForRealTurn, null, game);
+		newForRealTurn.setTurnNumber(turn.getTurnNumber() + 1);
 		
-//		compareCards(turn, null);
-//		turnDAO.saveTurn(turn);
-		
-		
-		compareCards(newForRealTurn, null);
+		turn.setTurn(newForRealTurn);
 		turnDAO.saveTurn(newForRealTurn);
-		
-		
-//		Turn diffTurn = new Turn();
-//		System.out.println("this is diffTurn");
-//		System.out.println(diffTurn);
-//		
-//		turnDAO.saveTurn(diffTurn);
-		
+
 		System.out.println("Inside run Turnr and this is turn being handed back:");
-		System.out.println(turn);
+		System.out.println(newForRealTurn);
 		
 		return newForRealTurn;
 	}
 	
-	public void clearPlayingCards(Turn turn) {
-		
-		turn.setPlayer1Card(null);
-		turn.setPlayer2Card(null);
-		
-		if( turn.getSecondPlayer1Card() != null) {
-			turn.setSecondPlayer1Card(null);
-		}
-		if( turn.getSecondPlayer2Card() != null) {
-			turn.setSecondPlayer2Card(null);
-		}
-		if( turn.getThirdPlayer1Card() != null) {
-			turn.setThirdPlayer1Card(null);
-		}
-		if( turn.getThirdPlayer2Card() != null) {
-			turn.setThirdPlayer2Card(null);
-		}
+	@Override
+	public Turn returnAllTurns(Turn turn, Game game) {
+//		
+////		Turn nextTurn = new Turn();
+//		
+//		while(game.getWinner() == null) {
+//			System.out.println("\n+++++++++++++++++++++ INSIDE RETURN ALL TURNS +++++++++++++++++++++");
+//			
+//			System.out.println();
+//			
+//			turn.setTurn(runTurn(turn, turn.getPlayer1(), turn.getPlayer2(), game));
+//			
+////			model.addAttribute("turn", lastTurn);
+////			model.addAttribute("game", game);
+//			
+//			System.out.println("\\n+++++++++++++++++++++ LEAVING RETURN ALL TURNS +++++++++++++++++++++");
+//			System.out.println("\n\n");
+//		}
+		return null;
 	}
 	
-//	@Override
-//	public Game initializeGame() {
-//		
-//		Player player1 = new Player("player1");
-//		Player player2 = new Player("player2");
-//		Game newGame = new Game(player1, player2);
-//		
-//		return newGame;
-//	}
-	
 	@Override
-	public void compareCards(Turn turn, Deck incomingWinPile) {
+	public void compareCards(Turn turn, Deck incomingWinPile, Game game) {
 		
-		// turn win deck to game deck
 		Player player1 = turn.getPlayer1();
 		Player player2 = turn.getPlayer2();
-		
 		player1.turnWinDeckIntoPlayingDeck();
 		player2.turnWinDeckIntoPlayingDeck();
 		
@@ -158,10 +94,10 @@ public class DealerServiceImpl implements DealerService {
 			clearPlayingCards(turn);
 		}
 		
-		setHasGameBeenWon(turn.getPlayer1(), turn.getPlayer2());
+		setHasGameBeenWon(turn.getPlayer1(), turn.getPlayer2(), game);
 		
 		// checking if game won up here because is less code for recursive call
-		if (!hasGameBeenWon) {						
+		if (!hasGameBeenWon) {
 		
 			Deck winPile = incomingWinPile == null ? new Deck() : incomingWinPile;
 
@@ -184,10 +120,10 @@ public class DealerServiceImpl implements DealerService {
 				turn.setThirdPlayer2Card(player2Card.getCardAsString());
 			}
 
-			System.out.println("\n=====================================");
-			System.out.println("COMPARING PLAYER1 CARD: " + player1Card + 
-								" TO PLAYER2 CARD: " + player2Card);
-			System.out.println("=====================================\n");
+//			System.out.println("\n=====================================");
+//			System.out.println("COMPARING PLAYER1 CARD: " + player1Card + 
+//								" TO PLAYER2 CARD: " + player2Card);
+//			System.out.println("=====================================\n");
 
 			winPile.addACard(player1Card);
 			winPile.addACard(player2Card);
@@ -213,14 +149,13 @@ public class DealerServiceImpl implements DealerService {
 				turn.setPlayer2GameDeck(player2.getAmountOfCards());
 				turn.setPlayer2(player2);
 				
-				compareCards(turn, winPile);	
+				compareCards(turn, winPile, game);	
 			}
 			
 			turn.setPlayer1Score(player1.getTotalAmountOfCards());
 			turn.setPlayer1GameDeck(player1.getAmountOfCards());
 			turn.setPlayer1WinDeck(player1.getAmountOfWinCards());
 			turn.setPlayer1(player1);
-			
 			
 			turn.setPlayer2Score(player2.getTotalAmountOfCards());
 			turn.setPlayer2GameDeck(player2.getAmountOfCards());
@@ -232,13 +167,84 @@ public class DealerServiceImpl implements DealerService {
 		System.out.println(turn);
 	}
 	
-
+	@Override
+	public boolean setHasGameBeenWon(Player player1, Player player2, Game game) {
+		
+		int player1Score = player1.getTotalAmountOfCards();
+		int player2Score = player2.getTotalAmountOfCards();
+		
+		if (player1Score == 0) {
+			hasGameBeenWon = true;
+			gameWinner = player2;
+			game.setWinner("Player 2");
+		} else if (player2Score == 0) {
+			hasGameBeenWon = true;
+			gameWinner = player1;
+			game.setWinner("Player 1");
+		}
+		return hasGameBeenWon;
+	}
+	
+	@Override
+	@Transactional
+	public Turn makeFirstTurn(Turn firstTurn, TurnDAO mockTurnDAO, Game game) {
+		// FIND better solution for mockTurnDAO
+		
+		hasGameBeenWon = false;
+		
+		Deck initialDeck = makeInitialDeck();
+		
+		firstTurn.setPlayer1(new Player("player1"));
+		firstTurn.setPlayer2(new Player("player2"));
+		deal(initialDeck.getCards(), firstTurn.getPlayer1(), firstTurn.getPlayer2());
+		
+		firstTurn.setPlayer1GameDeck(firstTurn.getPlayer1().getDeck().getCards().size());
+		firstTurn.setPlayer2GameDeck(firstTurn.getPlayer2().getDeck().getCards().size());
+		firstTurn.setPlayer1WinDeck(0);
+		firstTurn.setPlayer2WinDeck(0);
+		firstTurn.setPlayer1Score(firstTurn.getPlayer1().getTotalAmountOfCards());
+		firstTurn.setPlayer2Score(firstTurn.getPlayer2().getTotalAmountOfCards());
+		
+		firstTurn.setPlayer1(firstTurn.getPlayer1());
+		firstTurn.setPlayer2(firstTurn.getPlayer2());
+		
+		firstTurn.setTurnNumber(1);
+		
+//		if (turnDAO != null) {
+			firstTurn.setGameId(game);
+			
+			turnDAO.saveTurn(firstTurn);			
+			gameDAO.saveGame(game);
+//		}
+		return firstTurn;
+	}
+	
 	@Override
 	@Transactional
 	public List<Turn> getTurns() {
 		return turnDAO.getTurns();
 	}
-
+	
+	@Override
+	public void deal(ArrayList<Card> theDeck, Player player1, Player player2) {
+		
+		Deck player1StartingDeck = new Deck();
+		Deck player2StartingDeck = new Deck();
+		
+		player1.setDeck(player1StartingDeck);
+		player2.setDeck(player2StartingDeck);
+		
+		for(int i=0; i<theDeck.size(); i++) {
+			Card tempCard = theDeck.get(i);
+			
+			if(i % 2 == 0) {
+				player1.addToDeck(tempCard);
+			} else {
+				player2.addToDeck(tempCard);
+			}
+		}
+	}
+	
 	@Override
 	public Deck makeInitialDeck(){
 		
@@ -279,44 +285,30 @@ public class DealerServiceImpl implements DealerService {
 		return initialDeck;
 	}
 	
-	@Override
-	public void deal(ArrayList<Card> theDeck, Player player1, Player player2) {
+public void clearPlayingCards(Turn turn) {
 		
-		Deck player1StartingDeck = new Deck();
-		Deck player2StartingDeck = new Deck();
+		turn.setPlayer1Card(null);
+		turn.setPlayer2Card(null);
 		
-		player1.setDeck(player1StartingDeck);
-		player2.setDeck(player2StartingDeck);
-		
-		for(int i=0; i<theDeck.size(); i++) {
-			Card tempCard = theDeck.get(i);
-			
-			if(i % 2 == 0) {
-				player1.addToDeck(tempCard);
-			} else {
-				player2.addToDeck(tempCard);
-			}
+		if( turn.getSecondPlayer1Card() != null) {
+			turn.setSecondPlayer1Card(null);
 		}
-	}
-	
-	@Override
-	public boolean setHasGameBeenWon(Player player1, Player player2) {
-		
-//		System.out.println("\nINSIDE SET HAS GAME BEEN WON:\n");
-		
-//		System.out.println(player1.deckToString());
-//		System.out.println(player1.getDeck());
-		
-		int player1Score = player1.getTotalAmountOfCards();
-		int player2Score = player2.getTotalAmountOfCards();
-		
-		if (player1Score == 0) {
-			hasGameBeenWon = true;
-			gameWinner = player2;
-		} else if (player2Score == 0) {
-			hasGameBeenWon = true;
-			gameWinner = player1;
+		if( turn.getSecondPlayer2Card() != null) {
+			turn.setSecondPlayer2Card(null);
 		}
-		return hasGameBeenWon;
+		if( turn.getThirdPlayer1Card() != null) {
+			turn.setThirdPlayer1Card(null);
+		}
+		if( turn.getThirdPlayer2Card() != null) {
+			turn.setThirdPlayer2Card(null);
+		}
 	}
 }
+
+
+
+
+
+
+
+

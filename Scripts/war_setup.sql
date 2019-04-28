@@ -9,8 +9,8 @@ CREATE TABLE `game_tbl` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
     `winner` varchar(45) DEFAULT NULL,
     `turnsToWin` int(11),
-    `player1` varchar(45) DEFAULT 'player1',
-    `player2` varchar(45) default 'player2',
+--     `player1` varchar(45) DEFAULT 'player1',
+--     `player2` varchar(45) default 'player2',
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
 
@@ -19,6 +19,7 @@ DROP TABLE IF EXISTS `turn_tbl`;
 SET FOREIGN_KEY_CHECKS=1;
 CREATE TABLE `turn_tbl` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
+    `turn_number` int(11) NOT NULL,
     `player1Score` int(11) DEFAULT NULL,
     `player1GameDeck` int(11) DEFAULT NULL,
     `player1WinDeck` int(11) DEFAULT NULL,

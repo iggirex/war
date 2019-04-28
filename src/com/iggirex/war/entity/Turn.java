@@ -24,6 +24,9 @@ public class Turn {
 	@Column(name="id")
 	private int id;
 	
+	@Column(name="turn_number")
+	private int turnNumber;
+	
 	@Column(name="player1Score")
 	private int player1Score;
 	
@@ -75,6 +78,7 @@ public class Turn {
 		
 		this.player1 = newTurn.getPlayer1();
 		this.player2 = newTurn.getPlayer2();
+		this.turnNumber = newTurn.getTurnNumber();
 		
 	}
 
@@ -206,6 +210,14 @@ public class Turn {
 
 	public void setGameId(Game game) {
 		this.game = game;
+	}
+
+	public int getTurnNumber() {
+		return turnNumber;
+	}
+
+	public void setTurnNumber(int turnNumber) {
+		this.turnNumber = turnNumber;
 	}
 
 	@Override

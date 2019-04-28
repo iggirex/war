@@ -39,27 +39,51 @@ public class WarController {
 	
 	@GetMapping("/nextTurn")
 	public String getNextTurn(Model model, @ModelAttribute("turn") Turn turn, @ModelAttribute("game") Game game) {
-		
-		System.out.println("\n==============================================");
-//		System.out.println("IN controller and this is turn handed in:");
-//		System.out.println(turn);
+		System.out.println("\n========== INSIDE NEXT TURN ====================");
 		
 		Turn newTurn = dealerService.runTurn(turn, turn.getPlayer1(), turn.getPlayer2(), game);
-		
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>> inside /nextTurn <<<<<<<<<<<<<<<<<<<<");
-		System.out.println("This is game being made:");
-		System.out.println(game.getId());
-		
-//		System.out.println("\n");
-//		System.out.println("IN controller and this is new turn JUST GOT MADEEE :");
-//		System.out.println(newTurn);
 
 		model.addAttribute("turn", newTurn);
 		model.addAttribute("game", game);
 		
-		System.out.println("==============================================");
-		System.out.println("\n\n");
+		System.out.println("============= LEAVING NEXT TURN ================\n\n");		
+		return "war";
+	}
+	
+	@GetMapping("/allTurns")
+	public String getAllTurns(Model model, @ModelAttribute("turn") Turn turn, @ModelAttribute("game") Game game) {
 		
+		Turn nextTurn = new Turn();
+		
+		while(game.getWinner() == null) {
+			System.out.println("\n$$$$$$$$$$$$ INSIDE ALL TURNS $$$$$$$$$$$$$$$");
+			
+			Turn lastTurn = dealerService.runTurn(turn, turn.getPlayer1(), turn.getPlayer2(), game);
+			
+			nextTurn.setTurn(lastTurn);
+			
+			model.addAttribute("turn", nextTurn);
+			model.addAttribute("game", game);
+			
+			System.out.println("\\n$$$$$$$$$$$$ LEAVING ALL TURNS $$$$$$$$$$$$$$$\n\n");
+		}
+		
+		return "win";
+	}
+	
+	@GetMapping("/newGame")
+	  public String newGame(Model theModel, @ModelAttribute("turn") Turn turn, @ModelAttribute("game") Game game) {
+	    
+	    Game newGame = new Game();
+	    
+	    Turn firstTurn = new Turn();
+		Game thisGame = new Game();
+		Turn tempTurn = dealerService.makeFirstTurn(firstTurn, null, thisGame);
+		firstTurn.setTurn(tempTurn);
+		
+		theModel.addAttribute("turn", firstTurn);
+		theModel.addAttribute("game", thisGame);
+
 		return "war";
 	}
 	
