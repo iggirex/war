@@ -25,8 +25,6 @@
 					${turn.player2Score}		
 				</div>
 			</div>
-			
-			
 		
 			<div class="player-decks-container">
 				<div id="player-two-win-deck" class="player-deck display-flex center-center">

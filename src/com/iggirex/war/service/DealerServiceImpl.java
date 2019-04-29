@@ -226,6 +226,12 @@ public class DealerServiceImpl implements DealerService {
 	}
 	
 	@Override
+	@Transactional
+	public List<Turn> getTurnsForGame(int gameId) {
+		return turnDAO.getTurnsForGame(gameId);
+	}
+	
+	@Override
 	public void deal(ArrayList<Card> theDeck, Player player1, Player player2) {
 		
 		Deck player1StartingDeck = new Deck();

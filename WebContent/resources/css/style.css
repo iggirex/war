@@ -254,3 +254,12 @@ body {
 .fs30 {
 	font-size: 30px;
 }
+
+tbody {
+    height: 500px;
+    overflow: auto;
+}
+
+thead, tbody {
+    display: block;
+}

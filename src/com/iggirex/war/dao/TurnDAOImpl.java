@@ -34,14 +34,14 @@ public class TurnDAOImpl implements TurnDAO {
 	private SessionFactory sessionFactory;
 	
 	@Override
-	public List<Turn> getTurns() {
+	public List<Turn> getTurnsForGame(int gameId) {
 		
 		// get the current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
 		
 		// create the query
 		Query<Turn> theQuery =
-				currentSession.createQuery("from Turn", Turn.class);
+				currentSession.createQuery("from Turn where game_id=" + gameId, Turn.class);
 		
 		// execute query and get result list
 		List<Turn> turns = theQuery.getResultList();
@@ -58,6 +58,12 @@ public class TurnDAOImpl implements TurnDAO {
 		Session currentSession = sessionFactory.getCurrentSession();
 		
 		currentSession.saveOrUpdate(turn);
+	}
+
+	@Override
+	public List<Turn> getTurns() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

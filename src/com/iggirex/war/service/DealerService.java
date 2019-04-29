@@ -27,5 +27,7 @@ public interface DealerService {
 	public Turn returnAllTurns(Turn turn, Game game);
 
 	Turn makeFirstTurn(Turn firstTurn, TurnDAO mockTurnDAO, Game game);
+
+	List<Turn> getTurnsForGame(int gameId);
 	
 }

@@ -1,5 +1,7 @@
 package com.iggirex.war.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,6 +57,8 @@ public class WarController {
 		
 		Turn nextTurn = new Turn();
 		
+		model.addAttribute("allTurns", null);
+		
 		while(game.getWinner() == null) {
 			System.out.println("\n$$$$$$$$$$$$ INSIDE ALL TURNS $$$$$$$$$$$$$$$");
 			
@@ -62,11 +66,17 @@ public class WarController {
 			
 			nextTurn.setTurn(lastTurn);
 			
-			model.addAttribute("turn", nextTurn);
-			model.addAttribute("game", game);
+			
 			
 			System.out.println("\\n$$$$$$$$$$$$ LEAVING ALL TURNS $$$$$$$$$$$$$$$\n\n");
 		}
+		
+		List<Turn> allTurns = dealerService.getTurnsForGame(game.getId());
+		
+		model.addAttribute("allTurns", allTurns);
+		
+		model.addAttribute("turn", nextTurn);
+		model.addAttribute("game", game);
 		
 		return "win";
 	}

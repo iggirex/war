@@ -22,5 +22,7 @@ public interface TurnDAO {
 	public List<Turn> getTurns();
 	
 	public void saveTurn(Turn turn);
+
+	List<Turn> getTurnsForGame(int gameId);
 	
 }
