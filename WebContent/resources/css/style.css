@@ -255,11 +255,19 @@ body {
 	font-size: 30px;
 }
 
-tbody {
-    height: 500px;
-    overflow: auto;
+
+table thead tr{
+    display:block;
 }
 
-thead, tbody {
-    display: block;
+table th,table td{
+    width:100px;//fixed width
+}
+
+
+table  tbody{
+  display:block;
+  height:70vh;
+  overflow:auto;
+  border: 1px solid;
 }
